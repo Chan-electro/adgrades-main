@@ -1,0 +1,984 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Light mode colors - Purple/Pink theme aligned */
+    --background: 255 255 255; /* Pure white */
+    --foreground: 30 41 59; /* Dark slate text */
+    --card: 248 250 252; /* Very light gray card background */
+    --card-foreground: 30 41 59; /* Dark text on light cards */
+    --primary: 147 51 234; /* Purple primary */
+    --primary-foreground: 255 255 255; /* White text on purple */
+    --secondary: 236 72 153; /* Pink secondary */
+    --secondary-foreground: 255 255 255; /* White text on pink */
+    --muted: 241 245 249; /* Very light gray */
+    --muted-foreground: 100 116 139; /* Muted text */
+    --accent: 147 51 234; /* Purple accent matching primary */
+    --accent-foreground: 255 255 255; /* White text on accent */
+    --border: 226 232 240; /* Light gray borders */
+    --input: 241 245 249; /* Light input background - fixed typo */
+    --ring: 147 51 234; /* Purple ring matching primary */
+    /* AdGrades Brand Colors - Purple/Pink theme */
+    --purple-brand: #9333ea; /* Vibrant purple */
+    --purple-brand-light: #a855f7; /* Lighter purple for gradients */
+    --pink-brand: #ec4899; /* Vibrant pink */
+    --pink-brand-light: #f472b6; /* Lighter pink for gradients */
+    --slate-dark: #1e293b; /* Dark slate for contrast */
+    --slate-darker: #0f172a; /* Darker slate */
+  }
+  .dark {
+    /* Dark mode colors - Rich purple/pink theme */
+    --background: 15 15 23; /* Deep purple-black background */
+    --foreground: 245 245 247; /* Light gray text */
+    --card: 24 24 37; /* Dark purple card background */
+    --card-foreground: 245 245 247; /* Light text on dark cards */
+    --primary: 168 85 247; /* Bright purple primary */
+    --primary-foreground: 15 15 23; /* Dark text on bright backgrounds */
+    --secondary: 244 114 182; /* Bright pink secondary */
+    --secondary-foreground: 15 15 23; /* Dark text on bright backgrounds */
+    --muted: 39 39 56; /* Muted dark purple */
+    --muted-foreground: 161 161 170; /* Muted light text */
+    --accent: 168 85 247; /* Bright purple accent */
+    --accent-foreground: 15 15 23; /* Dark text on accent */
+    --border: 39 39 56; /* Dark purple borders */
+    --input: 39 39 56; /* Dark input background */
+    --ring: 168 85 247; /* Bright purple ring */
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply text-foreground bg-background;
+    overflow-x: hidden;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  html {
+    overflow-x: hidden;
+  }
+}
+
+/* Brand gradient for AdGrades - Purple/Pink theme */
+.brand-gradient {
+  background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+}
+
+/* Light mode specific brand gradient */
+.light .brand-gradient {
+  background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+}
+
+/* Dark mode with brighter purple/pink colors */
+.dark .brand-gradient {
+  background: linear-gradient(135deg, #a855f7 0%, #f472b6 100%);
+}
+
+/* Subtle texture overlay for cards in light mode */
+.texture-overlay {
+  position: relative;
+  isolation: isolate;
+}
+
+.texture-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23000000' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Professional gradient for buttons and elements - Purple/Pink theme */
+.professional-gradient {
+  background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+}
+
+/* Light mode specific professional gradient */
+.light .professional-gradient {
+  background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+}
+
+/* Dark mode with brighter colors */
+.dark .professional-gradient {
+  background: linear-gradient(135deg, #a855f7 0%, #f472b6 100%);
+}
+
+/* Hero section glow effects - Purple/Pink theme */
+.hero-title-glow {
+  text-shadow: 0 0 15px rgba(168, 85, 247, 0.15),
+    0 0 30px rgba(244, 114, 182, 0.1), 0 0 45px rgba(168, 85, 247, 0.08);
+}
+
+.hero-badge-glow {
+  text-shadow: 0 0 12px rgba(168, 85, 247, 0.15),
+    0 0 25px rgba(244, 114, 182, 0.1);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.1),
+    0 0 30px rgba(244, 114, 182, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Light mode adjustments for glow */
+.light .hero-title-glow {
+  text-shadow: 0 0 12px rgba(147, 51, 234, 0.12),
+    0 0 25px rgba(236, 72, 153, 0.08), 0 0 40px rgba(147, 51, 234, 0.06);
+}
+
+.light .hero-badge-glow {
+  text-shadow: 0 0 10px rgba(147, 51, 234, 0.12),
+    0 0 20px rgba(236, 72, 153, 0.08);
+  box-shadow: 0 0 12px rgba(147, 51, 234, 0.08),
+    0 0 25px rgba(236, 72, 153, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Marquee animation for components that still use it */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--duration) linear infinite;
+}
+
+/* Float animation for components that still use it */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-20px) rotate(1deg) scale(1.05);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-1deg) scale(1.02);
+  }
+  75% {
+    transform: translateY(-15px) rotate(0.5deg) scale(1.03);
+  }
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 8s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* Fade in animation for other pages */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-out;
+}
+
+/* Button animations for other pages - Purple/Pink theme */
+@keyframes buttonPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.4);
+  }
+}
+
+@keyframes buttonGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3),
+      0 4px 15px rgba(168, 85, 247, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(244, 114, 182, 0.4),
+      0 8px 25px rgba(168, 85, 247, 0.3);
+  }
+}
+
+.animate-button-pulse {
+  animation: buttonPulse 2s ease-in-out infinite;
+}
+
+.animate-button-glow {
+  animation: buttonGlow 3s ease-in-out infinite;
+}
+
+/* Minimalist card styles */
+.minimal-card {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(30, 41, 59, 0.5);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+.minimal-card:hover {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(0, 181, 255, 0.3);
+}
+
+/* Light mode card adjustments - Better contrast */
+.light .minimal-card {
+  background: rgba(248, 250, 252, 0.95);
+  border-color: rgba(203, 213, 225, 0.8);
+  backdrop-filter: blur(10px);
+  color: rgb(15, 23, 42);
+}
+
+.light .minimal-card:hover {
+  background: rgba(241, 245, 249, 0.98);
+  border-color: rgba(0, 112, 204, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 112, 204, 0.1);
+}
+
+/* Enhanced button styles with new purple/pink gradient */
+.brand-button {
+  background: linear-gradient(
+    135deg,
+    rgb(147, 51, 234) 0%,
+    rgb(236, 72, 153) 100%
+  );
+  color: #ffffff;
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px; /* Fully rounded */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(147, 51, 234, 0.25);
+}
+
+/* Light mode specific brand button */
+.light .brand-button {
+  background: linear-gradient(
+    135deg,
+    rgb(147, 51, 234) 0%,
+    rgb(236, 72, 153) 100%
+  );
+  box-shadow: 0 4px 15px rgba(147, 51, 234, 0.25);
+}
+
+.light .brand-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 35px rgba(147, 51, 234, 0.35);
+  background: linear-gradient(
+    135deg,
+    rgb(126, 34, 206) 0%,
+    rgb(219, 39, 119) 100%
+  );
+}
+
+/* Dark mode with brighter purple/pink colors */
+.dark .brand-button {
+  background: linear-gradient(
+    135deg,
+    rgb(168, 85, 247) 0%,
+    rgb(244, 114, 182) 100%
+  );
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+}
+
+.dark .brand-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 12px 35px rgba(168, 85, 247, 0.45);
+  background: linear-gradient(
+    135deg,
+    rgb(147, 51, 234) 0%,
+    rgb(236, 72, 153) 100%
+  );
+}
+
+.brand-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.6s;
+}
+
+.brand-button:hover::before {
+  left: 100%;
+}
+
+.brand-button:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+.brand-button:active {
+  transform: translateY(-1px) scale(1.02);
+  transition: all 0.1s;
+}
+
+.brand-button-outline {
+  background: transparent;
+  color: rgb(147, 51, 234);
+  border: 2px solid rgb(147, 51, 234);
+  font-weight: 600;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px; /* Fully rounded */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Light mode specific outline button */
+.light .brand-button-outline {
+  color: rgb(147, 51, 234);
+  border-color: rgb(147, 51, 234);
+}
+
+.light .brand-button-outline:hover {
+  background: rgb(147, 51, 234);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(147, 51, 234, 0.25);
+}
+
+/* Dark mode outline button */
+.dark .brand-button-outline {
+  color: rgb(168, 85, 247);
+  border-color: rgb(168, 85, 247);
+}
+
+.dark .brand-button-outline:hover {
+  background: rgb(168, 85, 247);
+  color: rgb(15, 15, 23);
+  box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3);
+}
+
+.brand-button-outline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+/* Light mode outline button before element */
+.light .brand-button-outline::before {
+  background: linear-gradient(
+    135deg,
+    rgb(147, 51, 234) 0%,
+    rgb(236, 72, 153) 100%
+  );
+}
+
+/* Dark mode outline button before element */
+.dark .brand-button-outline::before {
+  background: linear-gradient(
+    135deg,
+    rgb(168, 85, 247) 0%,
+    rgb(244, 114, 182) 100%
+  );
+}
+
+.brand-button-outline:hover::before {
+  width: 100%;
+}
+
+.brand-button-outline:hover {
+  color: white;
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* Light mode specific outline button hover */
+.light .brand-button-outline:hover {
+  border-color: rgb(236, 72, 153);
+  box-shadow: 0 12px 35px rgba(147, 51, 234, 0.25);
+}
+
+/* Dark mode specific outline button hover */
+.dark .brand-button-outline:hover {
+  border-color: rgb(244, 114, 182);
+  box-shadow: 0 12px 35px rgba(0, 181, 255, 0.3);
+}
+
+.brand-button-outline:active {
+  transform: translateY(-1px) scale(1.02);
+  transition: all 0.1s;
+}
+
+/* Light mode button adjustments */
+.light .brand-button-outline {
+  color: #00b5ff;
+  border-color: #00b5ff;
+}
+
+.light .brand-button-outline:hover {
+  color: white;
+  border-color: #01f9c6;
+}
+
+/* Navigation styles with improved purple theme */
+.nav-glass {
+  background: rgba(15, 15, 23, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(39, 39, 56, 0.4);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(168, 85, 247, 0.1);
+}
+
+/* Light mode navigation - Better contrast with purple accent */
+.light .nav-glass {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(203, 213, 225, 0.6);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 2px 20px rgba(147, 51, 234, 0.08);
+}
+
+/* Service card styles */
+.service-card {
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px solid rgba(30, 41, 59, 0.3);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.service-card:hover {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(0, 181, 255, 0.4);
+}
+
+/* Light mode service cards - Better contrast */
+.light .service-card {
+  background: rgba(248, 250, 252, 0.8);
+  border-color: rgba(203, 213, 225, 0.6);
+  color: rgb(15, 23, 42);
+}
+
+.light .service-card:hover {
+  background: rgba(241, 245, 249, 0.9);
+  border-color: rgba(0, 112, 204, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 112, 204, 0.1);
+}
+
+/* Clean typography - Mobile Responsive */
+.heading-primary {
+  font-size: clamp(2rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.heading-secondary {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Mobile-specific typography adjustments */
+@media (max-width: 640px) {
+  .heading-primary {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+
+  .heading-secondary {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+}
+
+/* Clean section spacing - Mobile Responsive */
+.section-padding {
+  padding: 2rem 0;
+}
+
+@media (min-width: 640px) {
+  .section-padding {
+    padding: 3rem 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding: 4rem 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-padding {
+    padding: 5rem 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .section-padding {
+    padding: 6rem 0;
+  }
+}
+
+/* Badge styles - Mobile Responsive */
+.page-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  background: rgba(15, 23, 42, 0.3);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 181, 255, 0.3);
+  border-radius: 9999px;
+  color: #00b5ff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  transition: all 0.5s ease;
+  box-shadow: 0 0 20px rgba(0, 181, 255, 0.15);
+}
+
+@media (min-width: 640px) {
+  .page-badge {
+    padding: 0.75rem 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.page-badge:hover {
+  background: rgba(15, 23, 42, 0.4);
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 181, 255, 0.2);
+}
+
+/* Light mode badge */
+.light .page-badge {
+  background: rgba(248, 250, 252, 0.8);
+  border-color: rgba(0, 181, 255, 0.3);
+  color: #00b5ff;
+}
+
+.light .page-badge:hover {
+  background: rgba(241, 245, 249, 0.9);
+  box-shadow: 0 8px 25px rgba(0, 181, 255, 0.2);
+}
+
+/* Gradient text classes for better cross-browser support */
+.gradient-text {
+  background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+}
+
+/* Light mode gradient text */
+.light .gradient-text {
+  background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Dark mode gradient text */
+.dark .gradient-text {
+  background: linear-gradient(135deg, #a855f7 0%, #f472b6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Large gradient text for hero titles */
+.gradient-text-large {
+  background: linear-gradient(135deg, #9333ea 20%, #ec4899 50%, #a855f7 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+}
+
+/* Dark mode large gradient text */
+.dark .gradient-text-large {
+  background: linear-gradient(135deg, #a855f7 20%, #f472b6 50%, #c084fc 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+}
+
+/* Stats gradient classes */
+.gradient-stat-0 {
+  background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-stat-1 {
+  background: linear-gradient(135deg, #ec4899 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-stat-2 {
+  background: linear-gradient(135deg, #a855f7 0%, #9333ea 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-stat-3 {
+  background: linear-gradient(135deg, #9333ea 0%, #ec4899 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Dark mode stats gradients */
+.dark .gradient-stat-0 {
+  background: linear-gradient(135deg, #a855f7 0%, #f472b6 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .gradient-stat-1 {
+  background: linear-gradient(135deg, #f472b6 0%, #c084fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .gradient-stat-2 {
+  background: linear-gradient(135deg, #c084fc 0%, #a855f7 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dark .gradient-stat-3 {
+  background: linear-gradient(135deg, #a855f7 0%, #f472b6 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Theme transition for smooth switching */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 768px) {
+  /* Ensure proper spacing on mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Mobile-friendly button sizes */
+  .brand-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  .brand-button-outline {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+  }
+
+  /* Mobile navigation improvements */
+  .mobile-menu {
+    box-shadow: -10px 0 25px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Mobile card spacing */
+  .minimal-card {
+    margin-bottom: 1rem;
+  }
+
+  /* Mobile text sizing */
+  .text-xl {
+    font-size: 1.125rem;
+  }
+
+  .text-2xl {
+    font-size: 1.25rem;
+  }
+}
+
+/* Touch-friendly interactive elements */
+@media (hover: none) and (pointer: coarse) {
+  .brand-button:hover,
+  .brand-button-outline:hover,
+  .minimal-card:hover,
+  .service-card:hover {
+    transform: none;
+  }
+
+  .brand-button:active,
+  .brand-button-outline:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Improved mobile marquee */
+@media (max-width: 640px) {
+  .animate-marquee {
+    animation-duration: 20s;
+  }
+}
+
+/* Text justification for better readability */
+.text-justified {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* Apply justified text to paragraphs in content areas */
+.content-area p,
+.description-text,
+.bio-text,
+.service-description,
+.project-description {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+}
+
+/* Ensure proper line height for justified text */
+.content-area p,
+.description-text,
+.bio-text,
+.service-description,
+.project-description {
+  line-height: 1.6;
+}
+
+/* Mobile adjustments for justified text */
+@media (max-width: 640px) {
+  .content-area p,
+  .description-text,
+  .bio-text,
+  .service-description,
+  .project-description {
+    text-align: left;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -ms-hyphens: none;
+  }
+}
+
+/* Light mode specific text contrast improvements */
+.light .text-foreground {
+  color: rgb(15, 23, 42) !important;
+}
+
+.light .text-muted-foreground {
+  color: rgb(71, 85, 105) !important;
+}
+
+.light .text-primary {
+  color: rgb(0, 112, 204) !important;
+}
+
+.light .text-secondary {
+  color: rgb(0, 150, 136) !important;
+}
+
+/* Light mode card text improvements */
+.light .card-title,
+.light .service-title,
+.light .portfolio-title {
+  color: rgb(15, 23, 42) !important;
+}
+
+.light .card-description,
+.light .service-description,
+.light .portfolio-description {
+  color: rgb(71, 85, 105) !important;
+}
+
+/* Light mode navigation text */
+.light .nav-link {
+  color: rgb(15, 23, 42) !important;
+}
+
+.light .nav-link:hover {
+  color: rgb(0, 112, 204) !important;
+}
+
+/* Light mode button text contrast */
+.light .btn-outline {
+  color: rgb(0, 112, 204) !important;
+  border-color: rgb(0, 112, 204) !important;
+}
+
+/* Light mode form elements */
+.light input,
+.light textarea,
+.light select {
+  color: rgb(15, 23, 42) !important;
+  background-color: rgb(248, 250, 252) !important;
+  border-color: rgb(203, 213, 225) !important;
+}
+
+.light input::placeholder,
+.light textarea::placeholder {
+  color: rgb(100, 116, 139) !important;
+}
+
+/* Light mode table text */
+.light table {
+  color: rgb(15, 23, 42) !important;
+}
+
+.light th {
+  color: rgb(15, 23, 42) !important;
+  border-color: rgb(203, 213, 225) !important;
+}
+
+.light td {
+  color: rgb(30, 41, 59) !important;
+  border-color: rgb(203, 213, 225) !important;
+}
+
+/* Light mode list text */
+.light ul,
+.light ol,
+.light li {
+  color: rgb(30, 41, 59) !important;
+}
+
+/* Better contrast for links in light mode */
+.light a {
+  color: rgb(0, 112, 204) !important;
+}
+
+.light a:hover {
+  color: rgb(0, 86, 163) !important;
+}
+
+/* Light mode heading improvements */
+.light h1,
+.light h2,
+.light h3,
+.light h4,
+.light h5,
+.light h6 {
+  color: rgb(15, 23, 42) !important;
+}
+
+/* Light mode badge and tag improvements */
+.light .badge,
+.light .tag {
+  background-color: rgb(241, 245, 249) !important;
+  color: rgb(15, 23, 42) !important;
+  border-color: rgb(203, 213, 225) !important;
+}
+
+/* Light mode alert and notification improvements */
+.light .alert {
+  background-color: rgb(248, 250, 252) !important;
+  color: rgb(15, 23, 42) !important;
+  border-color: rgb(203, 213, 225) !important;
+}
+
+/* Ensure sufficient contrast for icons in light mode */
+.light .icon {
+  color: rgb(71, 85, 105) !important;
+}
+
+.light .icon-primary {
+  color: rgb(0, 112, 204) !important;
+}
+
+/* Light mode footer text */
+.light .footer-text {
+  color: rgb(71, 85, 105) !important;
+}
+
+.light .footer-heading {
+  color: rgb(15, 23, 42) !important;
+}
+
+/* Light mode focus states for better accessibility */
+.light input:focus,
+.light textarea:focus,
+.light select:focus,
+.light button:focus {
+  outline: 2px solid rgb(0, 112, 204) !important;
+  outline-offset: 2px !important;
+}
+
+/* Light mode high contrast mode support */
+@media (prefers-contrast: high) {
+  .light {
+    --foreground: 0 0 0; /* Pure black text for highest contrast */
+    --muted-foreground: 51 65 85; /* Darker muted text */
+    --border: 156 163 175; /* Darker borders */
+  }
+}
+
+/* Button text color overrides for proper contrast */
+.light
+  [class*="bg-gradient-to-r"][class*="from-primary"][class*="to-secondary"] {
+  color: white !important;
+}
+
+.dark
+  [class*="bg-gradient-to-r"][class*="from-primary"][class*="to-secondary"] {
+  color: white !important;
+}
+
+/* Ensure CTA button text is always white for contrast */
+.light .text-primary-foreground {
+  color: white !important;
+}
+
+/* Secondary CTA button hover states - Ensure proper contrast */
+.light .hover\:text-primary-foreground:hover {
+  color: white !important;
+}
+
+.dark .hover\:text-primary-foreground:hover {
+  color: rgb(15, 15, 23) !important;
+}
+
+/* Ensure secondary buttons have proper text contrast when hovered */
+.light [class*="border-primary"][class*="hover:bg-primary"]:hover {
+  color: white !important;
+}
+
+.dark [class*="border-primary"][class*="hover:bg-primary"]:hover {
+  color: rgb(15, 15, 23) !important;
+}
