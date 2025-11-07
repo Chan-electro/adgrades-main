@@ -190,6 +190,36 @@
   animation: fadeIn 1s ease-out;
 }
 
+@keyframes hero-word-typing {
+  0% {
+    opacity: 0;
+    transform: translateY(0.25rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-word-erasing {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+}
+
+.hero-word-typing {
+  animation: hero-word-typing 0.14s ease-out forwards;
+}
+
+.hero-word-erasing {
+  animation: hero-word-erasing 0.14s ease-in forwards;
+}
+
 /* Button animations for other pages - Purple/Pink theme */
 @keyframes buttonPulse {
   0%,
