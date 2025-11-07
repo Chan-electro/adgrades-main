@@ -114,6 +114,275 @@
     0 0 30px rgba(244, 114, 182, 0.1), 0 0 45px rgba(168, 85, 247, 0.08);
 }
 
+.hero-rotator {
+  position: relative;
+  padding-right: 0.5rem;
+}
+
+.hero-rotator::after {
+  content: "";
+  position: absolute;
+  top: 15%;
+  right: 0.15rem;
+  width: 0.125rem;
+  height: 70%;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: hero-caret 1s steps(1, end) infinite;
+  opacity: 0.8;
+}
+
+@keyframes hero-caret {
+  0%,
+  40% {
+    opacity: 0.85;
+  }
+  60%,
+  100% {
+    opacity: 0.15;
+  }
+}
+
+.hero-aurora {
+  position: absolute;
+  inset: -25%;
+  background: radial-gradient(
+      circle at 20% 20%,
+      rgba(168, 85, 247, 0.35),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(236, 72, 153, 0.28),
+      transparent 60%
+    );
+  filter: blur(120px);
+  opacity: 0.5;
+  transform: rotate(2deg) scale(1.05);
+  animation: hero-aurora-wave 26s ease-in-out infinite alternate;
+}
+
+.hero-aurora::before,
+.hero-aurora::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(
+    from 180deg,
+    rgba(168, 85, 247, 0.28),
+    rgba(236, 72, 153, 0.12),
+    rgba(168, 85, 247, 0.3)
+  );
+  filter: blur(140px);
+  opacity: 0.45;
+  animation: hero-aurora-sweep 32s linear infinite;
+}
+
+.hero-aurora::after {
+  animation-duration: 40s;
+  animation-direction: reverse;
+  opacity: 0.35;
+}
+
+.hero-orb {
+  position: absolute;
+  width: clamp(16rem, 32vw, 24rem);
+  height: clamp(16rem, 32vw, 24rem);
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(236, 72, 153, 0.6),
+    rgba(168, 85, 247, 0.18) 60%,
+    transparent 100%
+  );
+  filter: blur(40px);
+  mix-blend-mode: screen;
+}
+
+.hero-orb--top-left {
+  top: -18%;
+  left: -12%;
+  animation: hero-orb-float 24s ease-in-out infinite;
+}
+
+.hero-orb--center {
+  top: 35%;
+  left: 55%;
+  animation: hero-orb-glide 28s ease-in-out infinite;
+}
+
+.hero-orb--bottom-right {
+  bottom: -20%;
+  right: -10%;
+  animation: hero-orb-float 30s ease-in-out infinite reverse;
+}
+
+@keyframes hero-aurora-wave {
+  0% {
+    transform: rotate(0deg) scale(1.05) translate3d(0, 0, 0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: rotate(4deg) scale(1.1) translate3d(2%, -1%, 0);
+    opacity: 0.6;
+  }
+  100% {
+    transform: rotate(-2deg) scale(1.08) translate3d(-1%, 1%, 0);
+    opacity: 0.5;
+  }
+}
+
+@keyframes hero-aurora-sweep {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(1turn) scale(1.05);
+  }
+}
+
+@keyframes hero-orb-float {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(6%, -8%, 0) scale(1.12);
+  }
+  100% {
+    transform: translate3d(-4%, 4%, 0) scale(1.04);
+  }
+}
+
+@keyframes hero-orb-glide {
+  0% {
+    transform: translate3d(-10%, -8%, 0) scale(0.95);
+  }
+  50% {
+    transform: translate3d(6%, 4%, 0) scale(1.1);
+  }
+  100% {
+    transform: translate3d(-8%, 10%, 0) scale(0.98);
+  }
+}
+
+.hero-shine-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  color: rgb(var(--accent));
+  background: rgba(168, 85, 247, 0.08);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  overflow: hidden;
+  backdrop-filter: blur(16px);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.4s ease, background 0.4s ease;
+  box-shadow: 0 10px 40px rgba(168, 85, 247, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.hero-shine-button::before,
+.hero-shine-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.hero-shine-button::before {
+  background: linear-gradient(
+    120deg,
+    rgba(236, 72, 153, 0.15),
+    rgba(168, 85, 247, 0.22),
+    rgba(236, 72, 153, 0.2)
+  );
+  opacity: 0.65;
+  mix-blend-mode: screen;
+}
+
+.hero-shine-button::after {
+  top: -150%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle at 20% 20%,
+    rgba(236, 72, 153, 0.55),
+    rgba(168, 85, 247, 0.35),
+    transparent 65%
+  );
+  animation: hero-button-shimmer 9s linear infinite;
+  opacity: 0.65;
+}
+
+.hero-shine-button:hover {
+  transform: translateY(-4px) scale(1.03);
+  background: rgba(168, 85, 247, 0.16);
+  color: #ffffff;
+  box-shadow: 0 18px 45px rgba(168, 85, 247, 0.28);
+}
+
+.hero-shine-button:hover::after {
+  opacity: 0.8;
+}
+
+.hero-shine-button:active {
+  transform: translateY(-1px) scale(1.01);
+}
+
+.hero-shine-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5),
+    0 0 0 4px rgba(168, 85, 247, 0.6);
+}
+
+.dark .hero-shine-button {
+  background: rgba(147, 51, 234, 0.18);
+  color: rgba(255, 255, 255, 0.92);
+  border-color: rgba(236, 72, 153, 0.4);
+  box-shadow: 0 14px 45px rgba(147, 51, 234, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.dark .hero-shine-button::before {
+  opacity: 0.75;
+}
+
+.dark .hero-shine-button:hover {
+  background: rgba(236, 72, 153, 0.22);
+  color: #ffffff;
+}
+
+@keyframes hero-button-shimmer {
+  0% {
+    transform: translate3d(0%, 0%, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(20%, 10%, 0) rotate(10deg);
+  }
+  100% {
+    transform: translate3d(-15%, -5%, 0) rotate(-10deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rotator::after,
+  .hero-aurora,
+  .hero-aurora::before,
+  .hero-aurora::after,
+  .hero-orb,
+  .hero-shine-button::after {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
 .hero-badge-glow {
   text-shadow: 0 0 12px rgba(168, 85, 247, 0.15),
     0 0 25px rgba(244, 114, 182, 0.1);
@@ -188,6 +457,36 @@
 
 .animate-fade-in {
   animation: fadeIn 1s ease-out;
+}
+
+@keyframes hero-word-typing {
+  0% {
+    opacity: 0;
+    transform: translateY(0.25rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-word-erasing {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+}
+
+.hero-word-typing {
+  animation: hero-word-typing 0.14s ease-out forwards;
+}
+
+.hero-word-erasing {
+  animation: hero-word-erasing 0.14s ease-in forwards;
 }
 
 /* Button animations for other pages - Purple/Pink theme */
