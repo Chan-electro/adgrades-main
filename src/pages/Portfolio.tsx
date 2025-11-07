@@ -132,69 +132,70 @@ export default function Portfolio() {
 
   return (
     <PlaylistProvider>
-      <main className="bg-gradient-to-b from-background via-background/95 to-muted/60">
-        <div className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-6 py-16 lg:px-10">
-          <header className="rounded-3xl border border-border/60 bg-card/90 p-8 shadow-sm backdrop-blur">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary/70">Signal Board</p>
-            <div className="mt-5 grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start">
-              <div className="space-y-5">
-                <h1 className="text-3xl font-bold leading-tight text-foreground md:text-5xl">
-                  Proof of performance across every AdGrades client
-                </h1>
-                <p className="max-w-3xl text-base text-muted-foreground lg:text-lg">
-                  Explore every campaign artifact, scrub timelines to see the work unfold, and surface
-                  outcomes that match your goals. Add a client once and their entire signal history is ready
-                  to showcase.
-                </p>
+      <main className="min-h-screen bg-background">
+        <div className="relative overflow-hidden pb-24">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-gradient-to-b from-primary/10 via-primary/5 to-transparent" />
+          <div className="pointer-events-none absolute -top-24 right-[-10%] h-80 w-80 rounded-full bg-secondary/10 blur-3xl" />
+          <div className="pointer-events-none absolute top-48 left-[-18%] h-96 w-96 rounded-full bg-primary/10 blur-3xl" />
+
+          <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 pt-20 sm:px-6 sm:pt-24 lg:px-10 lg:pt-28">
+            <header className="rounded-3xl border border-border/50 bg-card/80 p-8 shadow-xl backdrop-blur">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary/70">Signal Board</p>
+              <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px] lg:items-start">
+                <div className="space-y-6">
+                  <h1 className="text-3xl font-bold leading-tight text-foreground md:text-5xl">
+                    Proof of performance across every AdGrades client
+                  </h1>
+                  <p className="max-w-3xl text-base text-muted-foreground lg:text-lg">
+                    Explore every campaign artifact, scrub timelines to see the work unfold, and surface outcomes
+                    that match your goals. Add a client once and their entire signal history is ready to showcase.
+                  </p>
+                </div>
+                <div className="hidden rounded-2xl border border-dashed border-primary/30 bg-background/70 p-5 text-sm text-muted-foreground shadow-inner lg:block">
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground/80">How to explore</h2>
+                  <ul className="mt-3 space-y-2">
+                    <li>• Filter by the outcome you care about.</li>
+                    <li>• Scrub the timeline to narrow to a moment in time.</li>
+                    <li>• Open any client to view channel tabs and playlist items.</li>
+                  </ul>
+                </div>
               </div>
-              <div className="hidden rounded-2xl border border-border/70 bg-muted/40 p-5 text-sm text-muted-foreground shadow-inner lg:block">
-                <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground/80">
-                  How to explore
-                </h2>
-                <ul className="mt-3 space-y-2">
-                  <li>• Filter by the outcome you care about.</li>
-                  <li>• Scrub the timeline to narrow to a moment in time.</li>
-                  <li>• Open any client to view channel tabs and playlist items.</li>
-                </ul>
-              </div>
+            </header>
+
+            <div className="grid gap-10 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
+              <aside className="space-y-6 rounded-3xl border border-border/60 bg-card/80 p-6 shadow-lg backdrop-blur lg:sticky lg:top-32 lg:h-fit">
+                <div className="space-y-4">
+                  <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">Prioritise an outcome</h2>
+                  <OutcomeFilters value={selectedOutcome} onChange={setSelectedOutcome} />
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between text-xs uppercase tracking-wide text-muted-foreground">
+                    <span>Timeline</span>
+                    <span>{points[timeIndex]?.label}</span>
+                  </div>
+                  <div className="rounded-2xl border border-border/50 bg-background/80 p-4 shadow-inner">
+                    {timebar()}
+                  </div>
+                </div>
+              </aside>
+
+              <section className="space-y-6 rounded-3xl border border-border/60 bg-card/70 p-6 shadow-xl">
+                <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+                  <h2 className="text-lg font-semibold text-foreground md:text-xl">
+                    {selectedOutcome === "all" ? "All client signals" : `Signals optimised for ${selectedOutcome}`}
+                  </h2>
+                  <p className="text-sm text-muted-foreground">
+                    Showing {sortedClients.length} client{sortedClients.length === 1 ? "" : "s"}
+                  </p>
+                </div>
+                <ChannelGrid
+                  clients={sortedClients}
+                  selectedOutcome={selectedOutcome}
+                  onSelectClient={handleSelectClient}
+                  currentDate={selectedDate}
+                />
+              </section>
             </div>
-          </header>
-
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
-            <aside className="space-y-6 rounded-3xl border border-border/60 bg-card/80 p-6 shadow-sm backdrop-blur lg:sticky lg:top-24 lg:h-fit">
-              <div className="space-y-4">
-                <h2 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-                  Prioritise an outcome
-                </h2>
-                <OutcomeFilters value={selectedOutcome} onChange={setSelectedOutcome} />
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-center justify-between text-xs uppercase tracking-wide text-muted-foreground">
-                  <span>Timeline</span>
-                  <span>{points[timeIndex]?.label}</span>
-                </div>
-                <div className="rounded-2xl border border-border/60 bg-muted/40 p-4 shadow-inner">
-                  {timebar()}
-                </div>
-              </div>
-            </aside>
-
-            <section className="space-y-6">
-              <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
-                <h2 className="text-lg font-semibold text-foreground md:text-xl">
-                  {selectedOutcome === "all" ? "All client signals" : `Signals optimised for ${selectedOutcome}`}
-                </h2>
-                <p className="text-sm text-muted-foreground">
-                  Showing {sortedClients.length} client{sortedClients.length === 1 ? "" : "s"}
-                </p>
-              </div>
-              <ChannelGrid
-                clients={sortedClients}
-                selectedOutcome={selectedOutcome}
-                onSelectClient={handleSelectClient}
-                currentDate={selectedDate}
-              />
-            </section>
           </div>
         </div>
       </main>

@@ -85,7 +85,7 @@ function ChannelTile({
 
   return (
     <li
-      className="group relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-background via-background to-muted/40 p-6 shadow-sm ring-1 ring-transparent transition duration-200 hover:-translate-y-1 hover:shadow-xl hover:ring-primary/30"
+      className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/80 p-6 shadow-md transition duration-200 hover:-translate-y-1 hover:border-primary/50 hover:shadow-2xl"
       data-analytics-event="portfolio.channel.open"
       data-analytics-value={client.id}
     >
