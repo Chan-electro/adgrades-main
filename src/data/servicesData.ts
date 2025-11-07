@@ -113,13 +113,9 @@ export const services: Service[] = [
       "Built for sustainable growth (not trends-for-trends’ sake). We plan content pillars, design static creatives, write on-brand captions, schedule consistently, manage a defined community window, and report actionable insights monthly. Video production (reels/ads) is billed under Video Editing SKUs; we schedule/post those assets as part of this service.",
     icon: Target,
     features: [
-      "1–3 platforms by tier (Instagram, LinkedIn, Facebook/Twitter)",
-      "12–20 static posts/month (tier-dependent) + 8–16 story frames",
       "On-brand captions & optimized hashtag sets",
       "Monthly content calendar (themes & pillars)",
-      "Community management window (15–45 min/day, Mon–Fri)",
       "Monthly performance report & insights",
-      "Strategy governance calls (1–4 per month, by tier)",
     ],
     benefits: [
       "Consistent brand presence",
@@ -170,9 +166,6 @@ export const services: Service[] = [
       "We set up tracking correctly, build clean account structures, run experiments, and optimize weekly for measurable results. Creative variants and copy are included; brand-new video production is billed via Video Editing SKUs. Ad spend is billed directly to platforms (not included).",
     icon: Target,
     features: [
-      "Account setup/audit (pixels, GA4, conversions)",
-      "Structured campaigns & audiences (scale-ready)",
-      "Creative variants & ad copy (new production billed separately)",
       "Weekly optimization & pacing",
       "A/B testing & learnings (by tier)",
       "Clear KPI reporting & next-month plan",
@@ -229,9 +222,6 @@ export const services: Service[] = [
       "Hard/Styled captions (tier-dependent)",
       "Music & basic audio mix",
       "Motion text, speed ramps, light masking (Intermediate)",
-      "Extra aspect ratio export (Intermediate)",
-      "Script + shot list for Commercial Ads",
-      "VO direction & 2D animation for Explainers",
     ],
     benefits: [
       "On-brand, scroll-stopping videos",
@@ -304,6 +294,7 @@ export const services: Service[] = [
       "Google Analytics",
       "Mailchimp",
       "Grammarly",
+      "Social Medias"
     ],
     process: [
       {
@@ -534,9 +525,6 @@ export const services: Service[] = [
       "We deliver responsive, performant websites with clear scope by tier. All plans include on‑page SEO baseline, analytics, and a maintenance SLA covering updates, backups, and security. Premium adds staging, micro-interactions, and deeper QA.",
     icon: Globe,
     features: [
-      "Responsive design & performance baseline",
-      "Static/Dynamic builds with CMS (by tier)",
-      "Lead/contact forms + WhatsApp CTA",
       "On-page SEO (meta/alt) + sitemap/robots",
       "GA4 setup + basic events",
       "Staging, QA, and cross-browser checks (Premium)",
@@ -726,8 +714,6 @@ export const services: Service[] = [
       "We build and operate e‑commerce foundations with a CRO-friendly product template, catalog management, analytics, and platform integrations. Maintenance covers security/updates/backups and monthly catalog support. Revenue share protects ongoing growth effort.",
     icon: ShoppingCart,
     features: [
-      "Catalog setup & product templates (CRO elements, reviews, trust badges)",
-      "Payments, taxes, shipping rules, order emails",
       "Inventory & order management flows",
       "Facebook/Google product catalogs",
       "Analytics (GA4 + conversions)",
