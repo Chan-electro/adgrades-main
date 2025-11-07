@@ -30,6 +30,14 @@ const initialFormData = {
   message: "",
 };
 
+const budgetOptions = [
+  { value: "5k-10k", label: "₹50K - ₹1L" },
+  { value: "10k-25k", label: "₹1L - ₹2.5L" },
+  { value: "25k-50k", label: "₹2.5L - ₹5L" },
+  { value: "50k+", label: "₹5L+" },
+  { value: "discuss", label: "Let's discuss" },
+];
+
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
 const Contact: React.FC = () => {
@@ -54,12 +62,16 @@ const Contact: React.FC = () => {
     setStatus("submitting");
     setErrorMessage(null);
 
+    const selectedBudgetLabel = budgetOptions.find(
+      (option) => option.value === formData.budget
+    )?.label;
+
     const payload = {
       name: formData.name,
       email: formData.email,
       company: formData.company || "Not provided",
       service: formData.service || "Not specified",
-      budget: formData.budget || "Not specified",
+      budget: selectedBudgetLabel || formData.budget || "Not specified",
       message: formData.message,
       _subject: `New Contact Inquiry from ${formData.name}`,
       _template: "table",
@@ -291,183 +303,212 @@ const Contact: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
             {/* Contact Form */}
             <motion.div
-              className="bg-card/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-border/50"
+              className="relative overflow-hidden rounded-2xl border border-border/60 bg-card/70 shadow-xl"
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">
-                Send us a Message
-              </h2>
-
-              {status === "success" ? (
-                <div className="text-center py-6 sm:py-8">
-                  <CheckCircle className="h-8 w-8 sm:h-12 sm:w-12 text-green-500 mx-auto mb-3" />
-                  <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">
-                    Message Sent Successfully!
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    We'll get back to you within 24 hours.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={handleReset}
-                    className="mt-4 inline-flex items-center px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 text-sm"
-                  >
-                    Send Another Message
-                  </button>
-                </div>
-              ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  className="space-y-3 sm:space-y-4"
-                >
-                  {status === "error" && errorMessage && (
-                    <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-xs sm:text-sm text-red-700">
-                      {errorMessage}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -top-24 -right-16 h-48 w-48 rounded-full bg-primary/20 blur-3xl"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -bottom-32 -left-20 h-56 w-56 rounded-full bg-secondary/15 blur-3xl"
+              />
+              <div className="relative p-5 sm:p-8">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 sm:mb-6">
+                  <div>
+                    <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-[11px] sm:text-xs font-semibold text-primary">
+                      <Sparkles className="h-3.5 w-3.5" />
+                      <span>We respond within 24 hours</span>
                     </div>
-                  )}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                    <div>
+                    <h2 className="mt-3 text-xl sm:text-2xl font-bold text-foreground">
+                      Send us a Message
+                    </h2>
+                    <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
+                      Share your project details and we’ll craft a tailored strategy for you.
+                    </p>
+                  </div>
+                  <div className="hidden sm:flex flex-col items-end text-right text-xs text-muted-foreground">
+                    <span className="font-semibold text-foreground">Average reply time</span>
+                    <span className="text-primary font-semibold">&lt; 12 hours</span>
+                  </div>
+                </div>
+
+                {status === "success" ? (
+                  <div className="relative overflow-hidden rounded-xl border border-emerald-100 bg-emerald-50/80 px-4 py-6 text-center">
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/40 to-transparent" aria-hidden />
+                    <CheckCircle className="relative mx-auto mb-3 h-10 w-10 text-emerald-500" />
+                    <h3 className="relative text-base sm:text-lg font-semibold text-foreground">
+                      Message Sent Successfully!
+                    </h3>
+                    <p className="relative mt-1 text-xs sm:text-sm text-muted-foreground">
+                      We’ll get back to you within 24 hours.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={handleReset}
+                      className="relative mt-4 inline-flex items-center justify-center rounded-lg border border-primary/30 bg-white/70 px-4 py-2 text-xs sm:text-sm font-semibold text-primary transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-primary"
+                    >
+                      Send Another Message
+                    </button>
+                  </div>
+                ) : (
+                  <form
+                    onSubmit={handleSubmit}
+                    className="space-y-4 sm:space-y-6"
+                  >
+                    {status === "error" && errorMessage && (
+                      <div className="rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-xs sm:text-sm font-medium text-destructive">
+                        {errorMessage}
+                      </div>
+                    )}
+                    <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2">
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="name"
+                          className="block text-xs sm:text-sm font-semibold text-foreground"
+                        >
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          required
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          className="w-full rounded-lg border border-border/60 bg-background/60 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/80 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
+                          placeholder="John Doe"
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="email"
+                          className="block text-xs sm:text-sm font-semibold text-foreground"
+                        >
+                          Email Address *
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          required
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          className="w-full rounded-lg border border-border/60 bg-background/60 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/80 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
+                          placeholder="john@example.com"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
                       <label
-                        htmlFor="name"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
+                        htmlFor="company"
+                        className="block text-xs sm:text-sm font-semibold text-foreground"
                       >
-                        Full Name *
+                        Company Name
                       </label>
                       <input
                         type="text"
-                        id="name"
-                        name="name"
-                        required
-                        value={formData.name}
+                        id="company"
+                        name="company"
+                        value={formData.company}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 text-sm"
-                        placeholder="John Doe"
+                        className="w-full rounded-lg border border-border/60 bg-background/60 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/80 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
+                        placeholder="Your Company"
                       />
                     </div>
-                    <div>
+
+                    <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2">
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="service"
+                          className="block text-xs sm:text-sm font-semibold text-foreground"
+                        >
+                          Service Interested In
+                        </label>
+                        <select
+                          id="service"
+                          name="service"
+                          value={formData.service}
+                          onChange={handleInputChange}
+                          className="w-full appearance-none rounded-lg border border-border/60 bg-background/60 px-4 py-2.5 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
+                        >
+                          <option value="">Select a service</option>
+                          <option value="social-media">
+                            Social Media Marketing
+                          </option>
+                          <option value="branding">
+                            Brand Identity &amp; Design
+                          </option>
+                          <option value="seo">Search Engine Optimization</option>
+                          <option value="email">Email Marketing</option>
+                          <option value="ads">Performance Advertising</option>
+                          <option value="development">
+                            Web &amp; App Development
+                          </option>
+                          <option value="multiple">Multiple Services</option>
+                        </select>
+                      </div>
+                      <div className="space-y-1.5">
+                        <label
+                          htmlFor="budget"
+                          className="block text-xs sm:text-sm font-semibold text-foreground"
+                        >
+                          Project Budget
+                        </label>
+                        <select
+                          id="budget"
+                          name="budget"
+                          value={formData.budget}
+                          onChange={handleInputChange}
+                          className="w-full appearance-none rounded-lg border border-border/60 bg-background/60 px-4 py-2.5 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
+                        >
+                          <option value="">Select budget range</option>
+                          {budgetOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="space-y-1.5">
                       <label
-                        htmlFor="email"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
+                        htmlFor="message"
+                        className="block text-xs sm:text-sm font-semibold text-foreground"
                       >
-                        Email Address *
+                        Project Details *
                       </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
+                      <textarea
+                        id="message"
+                        name="message"
+                        rows={4}
                         required
-                        value={formData.email}
+                        value={formData.message}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 text-sm"
-                        placeholder="john@example.com"
+                        className="w-full resize-none rounded-lg border border-border/60 bg-background/60 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/80 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
+                        placeholder="Tell us about your project goals, timeline, and any specific requirements..."
                       />
                     </div>
-                  </div>
 
-                  <div>
-                    <label
-                      htmlFor="company"
-                      className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
+                    <button
+                      type="submit"
+                      disabled={status === "submitting"}
+                      className="group relative inline-flex w-full items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-primary to-secondary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-lg transition-transform duration-300 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
                     >
-                      Company Name
-                    </label>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 text-sm"
-                      placeholder="Your Company"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                    <div>
-                      <label
-                        htmlFor="service"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
-                      >
-                        Service Interested In
-                      </label>
-                      <select
-                        id="service"
-                        name="service"
-                        value={formData.service}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground transition-all duration-300 text-sm"
-                      >
-                        <option value="">Select a service</option>
-                        <option value="social-media">
-                          Social Media Marketing
-                        </option>
-                        <option value="branding">
-                          Brand Identity & Design
-                        </option>
-                        <option value="seo">Search Engine Optimization</option>
-                        <option value="email">Email Marketing</option>
-                        <option value="ads">Performance Advertising</option>
-                        <option value="development">
-                          Web & App Development
-                        </option>
-                        <option value="multiple">Multiple Services</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="budget"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
-                      >
-                        Project Budget
-                      </label>
-                      <select
-                        id="budget"
-                        name="budget"
-                        value={formData.budget}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground transition-all duration-300 text-sm"
-                      >
-                        <option value="">Select budget range</option>
-                        <option value="5k-10k">₹50K - ₹1L</option>
-                        <option value="10k-25k">₹1L - ₹2.5L</option>
-                        <option value="25k-50k">₹2.5L - ₹5L</option>
-                        <option value="50k+">₹5L+</option>
-                        <option value="discuss">Let's discuss</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
-                    >
-                      Project Details *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={3}
-                      required
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground resize-none transition-all duration-300 text-sm"
-                      placeholder="Tell us about your project goals, timeline, and any specific requirements..."
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={status === "submitting"}
-                    className="w-full inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg text-sm"
-                  >
-                    {status === "submitting" ? "Sending..." : "Send Message"}
-                    <Send className="ml-1.5 h-3 w-3 sm:h-4 sm:w-4" />
-                  </button>
-                </form>
-              )}
+                      <span className="relative z-10 flex items-center gap-2">
+                        {status === "submitting" ? "Sending..." : "Send Message"}
+                        <Send className="h-4 w-4" />
+                      </span>
+                      <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-secondary/40 to-primary/40 transition-transform duration-500 ease-out group-hover:translate-x-0" />
+                    </button>
+                  </form>
+                )}
+              </div>
             </motion.div>{" "}
             {/* Contact Information */}
             <motion.div

@@ -558,32 +558,40 @@ const Careers: React.FC = () => {
           {/* Application Form with unique styling */}
           <motion.div
             id="application-form"
-            className="bg-card/30 backdrop-blur-md rounded-2xl border border-border/30 shadow-xl overflow-hidden mt-6 sm:mt-8"
+            className="relative mt-6 overflow-hidden rounded-2xl border border-border/60 bg-card/70 shadow-2xl backdrop-blur-md"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             viewport={{ once: true }}
           >
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-32 -right-20 h-56 w-56 rounded-full bg-primary/25 blur-3xl"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -bottom-36 -left-24 h-64 w-64 rounded-full bg-secondary/20 blur-3xl"
+            />
             {status === "success" ? (
-              <div className="bg-card/30 backdrop-blur-sm rounded-lg border border-border/50 p-8 sm:p-10">
+              <div className="relative px-6 py-10 sm:px-10">
                 <motion.div
-                  className="text-center py-6 sm:py-8"
+                  className="relative overflow-hidden rounded-2xl border border-emerald-200/60 bg-white/80 px-6 py-8 text-center shadow-xl"
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <CheckCircle className="h-8 w-8 sm:h-12 sm:w-12 text-green-500 mx-auto mb-3" />
-                  <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/50 via-transparent to-emerald-200/40" aria-hidden />
+                  <CheckCircle className="relative mx-auto mb-4 h-10 w-10 text-emerald-500" />
+                  <h3 className="relative text-lg font-semibold text-foreground">
                     Application Submitted Successfully!
                   </h3>
-                  <p className="text-muted-foreground text-sm">
-                    We'll review your application and get back to you within 5
-                    business days.
+                  <p className="relative mt-2 text-sm text-muted-foreground">
+                    We'll review your application and get back to you within 5 business days.
                   </p>
                   <motion.button
-                    className="mt-6 px-6 py-2.5 bg-primary/10 text-primary rounded-lg text-sm font-medium hover:bg-primary/20 transition-colors duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="relative mt-6 inline-flex items-center justify-center rounded-lg border border-primary/40 bg-primary/10 px-5 py-2.5 text-sm font-semibold text-primary transition-all duration-300 hover:-translate-y-0.5 hover:border-primary hover:bg-primary/15"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => {
                       setStatus("idle");
                       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -594,32 +602,42 @@ const Careers: React.FC = () => {
                 </motion.div>
               </div>
             ) : (
-              <div>
+              <div className="relative">
                 {/* Form header with accent */}
-                <div className="bg-gradient-to-r from-primary to-secondary p-4 sm:p-6 rounded-t-lg">
-                  <h3 className="text-white text-lg sm:text-xl font-bold flex items-center">
-                    <Send className="w-5 h-5 mr-2" /> Apply Now
-                  </h3>
-                  <p className="text-white/80 text-xs sm:text-sm mt-1">
-                    Fields marked with * are required
-                  </p>
+                <div className="relative overflow-hidden bg-gradient-to-r from-primary via-primary/90 to-secondary px-5 py-6 sm:px-7 sm:py-8">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.3),_transparent_60%)]" aria-hidden />
+                  <div className="relative flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex items-center text-white">
+                      <span className="mr-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15">
+                        <Send className="h-5 w-5" />
+                      </span>
+                      <div>
+                        <h3 className="text-lg sm:text-xl font-bold">Apply Now</h3>
+                        <p className="text-xs sm:text-sm text-white/80">
+                          Fields marked with * are required
+                        </p>
+                      </div>
+                    </div>
+                    <div className="hidden items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-medium text-white sm:flex">
+                      <Sparkles className="h-4 w-4" />
+                      <span>Be part of a fast-growing team</span>
+                    </div>
+                  </div>
                 </div>
                 <form
                   onSubmit={handleSubmit}
-                  className="p-5 sm:p-6 space-y-5 bg-card/30 backdrop-blur-sm rounded-b-lg border border-border/50 border-t-0"
+                  className="space-y-5 bg-white/70 px-5 py-6 backdrop-blur-sm sm:px-7 sm:py-8"
                 >
                   {status === "error" && errorMessage && (
-                    <div className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-left">
-                      <p className="text-xs sm:text-sm font-medium text-destructive">
-                        {errorMessage}
-                      </p>
+                    <div className="rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-left text-xs sm:text-sm font-medium text-destructive">
+                      {errorMessage}
                     </div>
                   )}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-                    <div>
+                  <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2">
+                    <div className="space-y-1.5">
                       <label
                         htmlFor="name"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
+                        className="block text-xs sm:text-sm font-semibold text-foreground"
                       >
                         Full Name *
                       </label>
@@ -630,14 +648,14 @@ const Careers: React.FC = () => {
                         required
                         value={applicationData.name}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 text-sm"
+                        className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                         placeholder="John Doe"
                       />
                     </div>
-                    <div>
+                    <div className="space-y-1.5">
                       <label
                         htmlFor="email"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
+                        className="block text-xs sm:text-sm font-semibold text-foreground"
                       >
                         Email Address *
                       </label>
@@ -648,17 +666,17 @@ const Careers: React.FC = () => {
                         required
                         value={applicationData.email}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 text-sm"
+                        className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                         placeholder="john@example.com"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-                    <div>
+                  <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2">
+                    <div className="space-y-1.5">
                       <label
                         htmlFor="phone"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
+                        className="block text-xs sm:text-sm font-semibold text-foreground"
                       >
                         Phone Number
                       </label>
@@ -668,14 +686,14 @@ const Careers: React.FC = () => {
                         name="phone"
                         value={applicationData.phone}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 text-sm"
+                        className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                         placeholder="+91 98765 43210"
                       />
                     </div>
-                    <div>
+                    <div className="space-y-1.5">
                       <label
                         htmlFor="portfolio"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
+                        className="block text-xs sm:text-sm font-semibold text-foreground"
                       >
                         Portfolio/LinkedIn URL
                       </label>
@@ -685,17 +703,17 @@ const Careers: React.FC = () => {
                         name="portfolio"
                         value={applicationData.portfolio}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 text-sm"
+                        className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                         placeholder="https://linkedin.com/in/johndoe"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-                    <div>
+                  <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-2">
+                    <div className="space-y-1.5">
                       <label
                         htmlFor="position"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
+                        className="block text-xs sm:text-sm font-semibold text-foreground"
                       >
                         Position of Interest *
                       </label>
@@ -705,7 +723,7 @@ const Careers: React.FC = () => {
                         required
                         value={applicationData.position}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground transition-all duration-300 text-sm"
+                        className="w-full appearance-none rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                       >
                         <option value="">Select a position</option>
                         {openPositions.map((position) => (
@@ -723,10 +741,10 @@ const Careers: React.FC = () => {
                         </option>
                       </select>
                     </div>
-                    <div>
+                    <div className="space-y-1.5">
                       <label
                         htmlFor="experience"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
+                        className="block text-xs sm:text-sm font-semibold text-foreground"
                       >
                         Years of Experience
                       </label>
@@ -735,7 +753,7 @@ const Careers: React.FC = () => {
                         name="experience"
                         value={applicationData.experience}
                         onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground transition-all duration-300 text-sm"
+                        className="w-full appearance-none rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                       >
                         <option value="">Select experience level</option>
                         <option value="0-1">0-1 years (Entry Level)</option>
@@ -746,10 +764,10 @@ const Careers: React.FC = () => {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="space-y-1.5">
                     <label
                       htmlFor="message"
-                      className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
+                      className="block text-xs sm:text-sm font-semibold text-foreground"
                     >
                       Tell us about yourself *
                     </label>
@@ -760,23 +778,45 @@ const Careers: React.FC = () => {
                       required
                       value={applicationData.message}
                       onChange={handleInputChange}
-                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground resize-none transition-all duration-300 text-sm"
-                      placeholder="Tell us about your experience, skills, and why you'd like to join AdGrades..."
+                      className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
+                      placeholder="Highlight your experience, achievements, and what excites you about working with AdGrades."
                     />
                   </div>
 
-                  <div className="pt-2">
+                  <div className="space-y-1.5">
+                    <label
+                      htmlFor="resume"
+                      className="block text-xs sm:text-sm font-semibold text-foreground"
+                    >
+                      Resume / CV URL
+                    </label>
+                    <input
+                      type="url"
+                      id="resume"
+                      name="resume"
+                      value={applicationData.resume}
+                      onChange={handleInputChange}
+                      className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
+                      placeholder="Share a Google Drive, Dropbox, or portfolio link."
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <p className="text-[11px] sm:text-xs text-muted-foreground">
+                      By submitting this form, you agree to our privacy policy.
+                    </p>
                     <motion.button
                       type="submit"
-                      className="w-full inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 bg-primary text-white font-semibold rounded-lg transition-all duration-300 transform shadow-lg text-sm disabled:cursor-not-allowed disabled:opacity-70"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       disabled={status === "submitting"}
+                      className="group relative inline-flex items-center justify-center overflow-hidden rounded-xl bg-gradient-to-r from-primary to-secondary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg transition-transform duration-300 hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
                     >
-                      {status === "submitting"
-                        ? "Sending Application..."
-                        : "Submit Application"}
-                      <Send className="ml-1.5 h-3 w-3 sm:h-4 sm:w-4" />
+                      <span className="relative z-10 flex items-center gap-2">
+                        {status === "submitting" ? "Submitting..." : "Submit Application"}
+                        <Send className="h-4 w-4" />
+                      </span>
+                      <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-secondary/40 to-primary/40 transition-transform duration-500 ease-out group-hover:translate-x-0" />
                     </motion.button>
                   </div>
                 </form>
