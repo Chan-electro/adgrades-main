@@ -34,7 +34,7 @@ const Clients: React.FC = () => {
   const stats = [
     {
       icon: Users,
-      number: "50+",
+      number: "25+",
       label: "Happy Clients",
       color: "text-blue-500",
     },
@@ -46,13 +46,13 @@ const Clients: React.FC = () => {
     },
     {
       icon: TrendingUp,
-      number: "200%",
+      number: "150%",
       label: "Avg Growth",
       color: "text-purple-500",
     },
     {
       icon: Award,
-      number: "100%",
+      number: "90%",
       label: "Success Rate",
       color: "text-orange-500",
     },
