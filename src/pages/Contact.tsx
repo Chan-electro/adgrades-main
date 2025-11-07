@@ -10,8 +10,6 @@ import {
   MapPin,
   Clock,
   CheckCircle,
-  ChevronDown,
-  ChevronUp,
   Sparkles,
   ArrowRight,
   Globe,
@@ -29,6 +27,37 @@ const initialFormData = {
   budget: "",
   message: "",
 };
+
+const budgetOptions = [
+  { value: "5k-10k", label: "₹50K - ₹1L" },
+  { value: "10k-25k", label: "₹1L - ₹2.5L" },
+  { value: "25k-50k", label: "₹2.5L - ₹5L" },
+  { value: "50k+", label: "₹5L+" },
+  { value: "discuss", label: "Let's discuss" },
+];
+
+const responseStats = [
+  { label: "Average reply time", value: "&lt; 12 hours" },
+  { label: "Projects launched", value: "120+" },
+  { label: "Client satisfaction", value: "98%" },
+];
+
+const serviceHighlights = [
+  {
+    title: "Strategy first",
+    description: "Every inquiry receives a tailored roadmap built around your goals.",
+  },
+  {
+    title: "Senior team access",
+    description:
+      "Speak directly with our strategists—no gatekeepers, only experts guiding you.",
+  },
+  {
+    title: "Progress updates",
+    description:
+      "You'll receive a clear plan of action within a day of reaching out to us.",
+  },
+];
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -54,12 +83,16 @@ const Contact: React.FC = () => {
     setStatus("submitting");
     setErrorMessage(null);
 
+    const selectedBudgetLabel = budgetOptions.find(
+      (option) => option.value === formData.budget
+    )?.label;
+
     const payload = {
       name: formData.name,
       email: formData.email,
       company: formData.company || "Not provided",
       service: formData.service || "Not specified",
-      budget: formData.budget || "Not specified",
+      budget: selectedBudgetLabel || formData.budget || "Not specified",
       message: formData.message,
       _subject: `New Contact Inquiry from ${formData.name}`,
       _template: "table",
@@ -134,7 +167,7 @@ const Contact: React.FC = () => {
   const officeInfo = [
     {
       icon: MapPin,
-      title: "Office Location",
+      title: "Office",
       details: [
         "Vinayaka Industries",
         "Behind KMF Cattle Feed Factory",
@@ -154,7 +187,7 @@ const Contact: React.FC = () => {
     },
     {
       icon: Clock,
-      title: "Business Hours",
+      title: "Hours",
       details: [
         "Monday - Saturday: 9:00 AM - 9:00 PM",
         "Sunday: 9:00 AM - 1:30 PM",
@@ -186,510 +219,453 @@ const Contact: React.FC = () => {
     {
       question: "What makes AdGrades different from other agencies?",
       answer:
-        "AdGrades combines creative excellence with data-driven strategies. We're a young, dynamic team that understands modern digital landscapes. Our unique blend of offline and online marketing expertise, personalized approach, and commitment to measurable results sets us apart. We treat each client as a partner and are invested in their long-term success.",
+        "We combine creative storytelling with data-driven strategies to deliver results. Our team works closely with clients, offering transparency, regular communication, and tailored solutions to ensure every campaign is aligned with your brand vision and business objectives.",
     },
   ];
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
   };
+
   return (
-    <div className="min-h-screen pt-14 sm:pt-16 lg:pt-20 bg-background">
-      {/* Hero Section */}
-      <section className="py-6 sm:py-8 md:py-12 lg:py-16 relative overflow-hidden">
-        {/* Background Elements */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-48 h-48 lg:w-64 lg:h-64 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-32 h-32 lg:w-48 lg:h-48 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-full blur-3xl"></div>
-        </div>
+    <div className="relative min-h-screen overflow-hidden bg-background pb-24 pt-20">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[620px] bg-gradient-to-br from-primary/15 via-transparent to-secondary/20 blur-3xl"
+      />
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,_rgba(80,80,255,0.08),_transparent_55%)]" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center">
-            {/* Badge */}
-            <motion.div
-              className="inline-flex items-center bg-secondary/10 rounded-full px-3 py-1 sm:px-4 sm:py-1.5 mb-3 sm:mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-secondary mr-1 sm:mr-1.5" />
-              <span className="text-secondary font-semibold text-xs sm:text-sm">
-                Let's Start Something Amazing
-              </span>
-            </motion.div>
-            {/* Hero Title */}
-            <motion.h1
-              className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 sm:mb-4"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              Let's Chat About Your{" "}
-              <span className="gradient-text">Next Project</span>
-            </motion.h1>
-            {/* Description */}
-            <motion.p
-              className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Ready to transform your business? We'd love to hear about your
-              goals and discuss how AdGrades can help you achieve remarkable
-              growth.
-            </motion.p>{" "}
-            {/* CTA Buttons */}
-            <motion.div
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
+      <section className="relative z-10">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[1fr,0.8fr] lg:items-center">
+            <div className="space-y-6">
               <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+                className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1 text-xs font-semibold text-primary"
               >
-                <a
-                  href="#contact-form"
-                  className="group relative inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-lg font-semibold rounded-full bg-gradient-to-r from-primary to-secondary text-primary-foreground overflow-hidden transition-all duration-300"
-                >
-                  {/* Animated background */}
+                <Sparkles className="h-4 w-4" />
+                <span>Let’s craft your next milestone</span>
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, delay: 0.1 }}
+                className="text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl"
+              >
+                Share your vision and we’ll turn it into measurable results
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, delay: 0.2 }}
+                className="max-w-2xl text-sm text-muted-foreground sm:text-base"
+              >
+                Tell us where you are today and where you want to be. Our strategists will map out the experiments, campaigns, and creative systems to get you there.
+              </motion.p>
+
+              <div className="grid gap-4 sm:grid-cols-3">
+                {responseStats.map((stat) => (
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "0%" }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <Send className="w-4 h-4 sm:w-5 sm:h-5 mr-2 relative z-10 group-hover:animate-pulse" />
-                  <span className="relative z-10">Send Message</span>
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 relative z-10 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </motion.div>
-
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <a
-                  href="https://wa.me/919686314869"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-lg font-semibold rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
-                >
-                  <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                  <span>WhatsApp Us</span>
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
-                </a>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-      </section>{" "}
-      {/* Contact Form and Info */}
-      <section id="contact-form" className="py-6 sm:py-8 md:py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-            {/* Contact Form */}
-            <motion.div
-              className="bg-card/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 border border-border/50"
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">
-                Send us a Message
-              </h2>
-
-              {status === "success" ? (
-                <div className="text-center py-6 sm:py-8">
-                  <CheckCircle className="h-8 w-8 sm:h-12 sm:w-12 text-green-500 mx-auto mb-3" />
-                  <h3 className="text-base sm:text-lg font-semibold text-foreground mb-2">
-                    Message Sent Successfully!
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    We'll get back to you within 24 hours.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={handleReset}
-                    className="mt-4 inline-flex items-center px-4 py-2 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 text-sm"
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.7, delay: 0.2 }}
+                    className="rounded-2xl border border-border/60 bg-card/70 px-4 py-3 shadow-sm backdrop-blur"
                   >
-                    Send Another Message
-                  </button>
-                </div>
-              ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  className="space-y-3 sm:space-y-4"
-                >
-                  {status === "error" && errorMessage && (
-                    <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-xs sm:text-sm text-red-700">
-                      {errorMessage}
-                    </div>
-                  )}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
-                      >
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 text-sm"
-                        placeholder="John Doe"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
-                      >
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 text-sm"
-                        placeholder="john@example.com"
-                      />
-                    </div>
-                  </div>
+                    <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                      {stat.label}
+                    </p>
+                    <p className="mt-1 text-lg font-semibold text-primary">
+                      {stat.value}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
 
-                  <div>
-                    <label
-                      htmlFor="company"
-                      className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
-                    >
-                      Company Name
-                    </label>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 text-sm"
-                      placeholder="Your Company"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-                    <div>
-                      <label
-                        htmlFor="service"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
-                      >
-                        Service Interested In
-                      </label>
-                      <select
-                        id="service"
-                        name="service"
-                        value={formData.service}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground transition-all duration-300 text-sm"
-                      >
-                        <option value="">Select a service</option>
-                        <option value="social-media">
-                          Social Media Marketing
-                        </option>
-                        <option value="branding">
-                          Brand Identity & Design
-                        </option>
-                        <option value="seo">Search Engine Optimization</option>
-                        <option value="email">Email Marketing</option>
-                        <option value="ads">Performance Advertising</option>
-                        <option value="development">
-                          Web & App Development
-                        </option>
-                        <option value="multiple">Multiple Services</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="budget"
-                        className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
-                      >
-                        Project Budget
-                      </label>
-                      <select
-                        id="budget"
-                        name="budget"
-                        value={formData.budget}
-                        onChange={handleInputChange}
-                        className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground transition-all duration-300 text-sm"
-                      >
-                        <option value="">Select budget range</option>
-                        <option value="5k-10k">₹50K - ₹1L</option>
-                        <option value="10k-25k">₹1L - ₹2.5L</option>
-                        <option value="25k-50k">₹2.5L - ₹5L</option>
-                        <option value="50k+">₹5L+</option>
-                        <option value="discuss">Let's discuss</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      htmlFor="message"
-                      className="block text-xs sm:text-sm font-semibold text-foreground mb-1.5"
-                    >
-                      Project Details *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={3}
-                      required
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      className="w-full px-3 py-2 sm:px-4 sm:py-2.5 bg-background/50 border border-border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-foreground placeholder-muted-foreground resize-none transition-all duration-300 text-sm"
-                      placeholder="Tell us about your project goals, timeline, and any specific requirements..."
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={status === "submitting"}
-                    className="w-full inline-flex items-center justify-center px-4 py-2.5 sm:px-6 sm:py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary/90 transition-all duration-300 transform hover:scale-105 disabled:opacity-70 disabled:cursor-not-allowed shadow-lg text-sm"
-                  >
-                    {status === "submitting" ? "Sending..." : "Send Message"}
-                    <Send className="ml-1.5 h-3 w-3 sm:h-4 sm:w-4" />
-                  </button>
-                </form>
-              )}
-            </motion.div>{" "}
-            {/* Contact Information */}
             <motion.div
-              className="space-y-6"
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
+              className="relative rounded-3xl border border-border/60 bg-card/80 p-6 shadow-2xl backdrop-blur-lg"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div>
-                <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">
-                  Get in Touch
-                </h2>
-
-                {/* Office Info Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                  {officeInfo.map((info) => (
-                    <div
-                      key={info.title}
-                      className="bg-card/40 rounded-lg p-4 border border-border/30"
-                    >
-                      <div className="flex items-center mb-2">
-                        <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center mr-3">
-                          <info.icon className="h-4 w-4 text-primary" />
-                        </div>
-                        <h3 className="font-semibold text-foreground text-sm">
-                          {info.title}
-                        </h3>
-                      </div>
-                      <div className="space-y-1">
-                        {info.details.map((detail, detailIndex) => (
-                          <p
-                            key={detailIndex}
-                            className="text-muted-foreground text-xs leading-relaxed"
-                          >
-                            {detail}
-                          </p>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Social Contact Methods */}
-                <div>
-                  <h3 className="text-base font-semibold text-foreground mb-3">
-                    Connect with Us
-                  </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {contactMethods.map((method) => (
-                      <a
-                        key={method.title}
-                        href={method.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group flex flex-col items-center p-4 bg-card/40 rounded-lg border border-border/30 hover:border-primary/30 transition-all duration-300 hover:bg-card/60 text-center"
+              <div className="absolute inset-x-6 top-6 -z-10 h-full rounded-3xl bg-gradient-to-br from-primary/20 via-transparent to-secondary/30 blur-2xl" />
+              <div className="space-y-6">
+                <div className="flex flex-col gap-3">
+                  <h2 className="text-lg font-semibold text-foreground sm:text-xl">
+                    What to expect after reaching out
+                  </h2>
+                  <div className="space-y-4 text-sm text-muted-foreground">
+                    {serviceHighlights.map((highlight) => (
+                      <div
+                        key={highlight.title}
+                        className="rounded-2xl border border-border/50 bg-background/60 p-4"
                       >
-                        <div className="w-10 h-10 rounded-lg bg-background/80 flex items-center justify-center mb-2">
-                          <method.icon className={`h-5 w-5 ${method.color}`} />
-                        </div>
-                        <h4 className="font-semibold text-foreground text-sm mb-1">
-                          {method.title}
-                        </h4>
-                        <p className="text-muted-foreground text-xs">
-                          {method.action}
+                        <p className="font-semibold text-foreground">
+                          {highlight.title}
                         </p>
-                      </a>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {highlight.description}
+                        </p>
+                      </div>
                     ))}
                   </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href="#connect"
+                    className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-primary to-secondary px-6 py-2 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/30"
+                  >
+                    <Send className="h-4 w-4" />
+                    Start a conversation
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                  <a
+                    href="https://wa.me/919686314869"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2 text-sm font-semibold text-primary transition-all duration-300 hover:border-primary hover:bg-primary/10"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    WhatsApp us
+                  </a>
                 </div>
               </div>
             </motion.div>
           </div>
         </div>
-      </section>{" "}
-      {/* FAQs Section */}
-      <section className="py-6 sm:py-8 md:py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6 sm:mb-8">
-            <motion.h2
-              className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2 sm:mb-3"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              Frequently Asked <span className="gradient-text">Questions</span>
-            </motion.h2>
-            <motion.p
-              className="text-sm sm:text-base text-muted-foreground"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              Get answers to common questions about our services and process.
-            </motion.p>
-          </div>
+      </section>
 
-          <div className="divide-y divide-border/30">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <button
-                  onClick={() => toggleFaq(index)}
-                  className="w-full px-0 py-3 sm:py-4 text-left flex items-center justify-between hover:text-primary/80 transition-colors duration-300 focus:outline-none"
-                >
-                  <h3 className="text-sm sm:text-base font-semibold text-foreground pr-4">
-                    {faq.question}
-                  </h3>
-                  {openFaq === index ? (
-                    <ChevronUp className="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
+      <section id="connect" className="relative z-10 mt-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-[1.2fr,0.9fr]">
+            <motion.div
+              className="relative overflow-hidden rounded-3xl border border-border/60 bg-card/80 p-6 sm:p-10 shadow-xl backdrop-blur-xl"
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7 }}
+            >
+              <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/15 via-background to-secondary/15" />
+              <div className="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-primary/20 blur-3xl" aria-hidden />
+              <div className="absolute -bottom-16 -left-10 h-56 w-56 rounded-full bg-secondary/20 blur-3xl" aria-hidden />
+
+              <div className="relative">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div>
+                    <h2 className="text-2xl font-semibold text-foreground sm:text-3xl">
+                      Tell us about your project
+                    </h2>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Fill in the details below and our team will reach out with next steps within a business day.
+                    </p>
+                  </div>
+                  <div className="rounded-full border border-border/70 bg-background/60 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Response guaranteed
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  {status === "success" ? (
+                    <div className="relative overflow-hidden rounded-2xl border border-emerald-500/40 bg-gradient-to-br from-emerald-500/10 via-background to-emerald-500/10 p-6 text-center">
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.18),_transparent_60%)]" aria-hidden />
+                      <CheckCircle className="relative mx-auto h-12 w-12 text-emerald-500" />
+                      <h3 className="relative mt-3 text-lg font-semibold text-foreground">
+                        Message sent successfully
+                      </h3>
+                      <p className="relative mt-2 text-sm text-muted-foreground">
+                        Thank you for reaching out! Our strategists will get in touch within the next 12 hours.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={handleReset}
+                        className="relative mt-5 inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/60 px-5 py-2 text-sm font-semibold text-emerald-600 transition-all duration-300 hover:bg-emerald-500/10"
+                      >
+                        Send another message
+                      </button>
+                    </div>
                   ) : (
-                    <ChevronDown className="h-4 w-4 sm:h-5 sm:w-5 text-primary flex-shrink-0" />
+                    <form
+                      onSubmit={handleSubmit}
+                      className="space-y-5"
+                    >
+                      {status === "error" && errorMessage && (
+                        <div className="rounded-2xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm font-medium text-destructive">
+                          {errorMessage}
+                        </div>
+                      )}
+
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div className="space-y-2">
+                          <label
+                            htmlFor="name"
+                            className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                          >
+                            Full name
+                          </label>
+                          <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            value={formData.name}
+                            onChange={handleInputChange}
+                            className="w-full rounded-2xl border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-primary/80 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                            placeholder="John Doe"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label
+                            htmlFor="email"
+                            className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                          >
+                            Email address
+                          </label>
+                          <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            className="w-full rounded-2xl border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-primary/80 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                            placeholder="john@example.com"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4 sm:grid-cols-2">
+                        <div className="space-y-2">
+                          <label
+                            htmlFor="company"
+                            className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                          >
+                            Company / brand
+                          </label>
+                          <input
+                            type="text"
+                            id="company"
+                            name="company"
+                            value={formData.company}
+                            onChange={handleInputChange}
+                            className="w-full rounded-2xl border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-primary/80 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                            placeholder="Your company"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <label
+                            htmlFor="service"
+                            className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                          >
+                            Primary service of interest
+                          </label>
+                          <input
+                            type="text"
+                            id="service"
+                            name="service"
+                            value={formData.service}
+                            onChange={handleInputChange}
+                            className="w-full rounded-2xl border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-primary/80 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                            placeholder="e.g. Performance marketing"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="budget"
+                          className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                        >
+                          Monthly budget range
+                        </label>
+                        <div className="relative">
+                          <select
+                            id="budget"
+                            name="budget"
+                            value={formData.budget}
+                            onChange={handleInputChange}
+                            className="w-full appearance-none rounded-2xl border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground transition-all duration-300 focus:border-primary/80 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                          >
+                            <option value="">Select your investment</option>
+                            {budgetOptions.map((option) => (
+                              <option key={option.value} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                          </select>
+                          <ArrowRight className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90 text-muted-foreground" />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label
+                          htmlFor="message"
+                          className="text-xs font-semibold uppercase tracking-wide text-muted-foreground"
+                        >
+                          Tell us about your goals
+                        </label>
+                        <textarea
+                          id="message"
+                          name="message"
+                          rows={5}
+                          value={formData.message}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full rounded-2xl border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-primary/80 focus:outline-none focus:ring-2 focus:ring-primary/40"
+                          placeholder="Share any context, timelines, or success metrics you have in mind"
+                        />
+                      </div>
+
+                      <motion.button
+                        type="submit"
+                        whileTap={{ scale: 0.97 }}
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-primary to-secondary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/30"
+                        disabled={status === "submitting"}
+                      >
+                        {status === "submitting" ? "Sending..." : "Submit inquiry"}
+                        <ArrowRight className="h-4 w-4" />
+                      </motion.button>
+                    </form>
                   )}
-                </button>
-                {openFaq === index && (
-                  <motion.div
-                    className="pb-3 sm:pb-4"
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="grid gap-6"
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+            >
+              <div className="rounded-3xl border border-border/60 bg-card/70 p-6 shadow-xl backdrop-blur-xl">
+                <div className="flex items-center gap-3">
+                  <div className="rounded-full bg-primary/10 p-2 text-primary">
+                    <Globe className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">
+                      Global partnerships
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Collaborating with teams across India, the Middle East, and beyond.
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                  {officeInfo.map((item) => (
+                    <div
+                      key={item.title}
+                      className="rounded-2xl border border-border/50 bg-background/70 p-4"
+                    >
+                      <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+                        <item.icon className="h-4 w-4 text-primary" />
+                        {item.title}
+                      </div>
+                      <ul className="mt-2 space-y-1 text-xs text-muted-foreground">
+                        {item.details.map((detail) => (
+                          <li key={detail}>{detail}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-3xl border border-border/60 bg-card/70 p-6 shadow-xl backdrop-blur-xl">
+                <h3 className="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
+                  Prefer instant replies?
+                </h3>
+                <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                  {contactMethods.map((method) => (
+                    <a
+                      key={method.title}
+                      href={method.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex flex-col gap-3 rounded-2xl border border-border/60 bg-background/70 p-4 text-center transition-all duration-300 hover:-translate-y-1 hover:border-primary/60 hover:shadow-lg"
+                    >
+                      <div className={`mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 ${method.color}`}>
+                        <method.icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">
+                          {method.title}
+                        </p>
+                        <p className="text-xs text-muted-foreground">
+                          {method.description}
+                        </p>
+                      </div>
+                      <span className="inline-flex items-center justify-center gap-1 text-xs font-semibold text-primary">
+                        {method.action}
+                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative z-10 mt-20">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-3xl border border-border/60 bg-card/60 p-6 sm:p-10 shadow-xl backdrop-blur-xl">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <h2 className="text-2xl font-semibold text-foreground sm:text-3xl">
+                  Frequently asked questions
+                </h2>
+                <p className="mt-1 max-w-2xl text-sm text-muted-foreground">
+                  Answers to popular questions about partnering with AdGrades. Need something specific? Drop us a line.
+                </p>
+              </div>
+              <a
+                href="mailto:info@adgrades.in"
+                className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-primary transition-all duration-300 hover:bg-primary/10"
+              >
+                Email our team
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+
+            <div className="mt-8 space-y-4">
+              {faqs.map((faq, index) => {
+                const isOpen = openFaq === index;
+
+                return (
+                  <div
+                    key={faq.question}
+                    className="rounded-2xl border border-border/60 bg-background/80 p-4 transition-all duration-300"
                   >
-                    <div className="pt-2 sm:pt-3">
-                      <p className="text-muted-foreground leading-relaxed text-xs sm:text-sm">
+                    <button
+                      type="button"
+                      onClick={() => toggleFaq(index)}
+                      className="flex w-full items-center justify-between text-left"
+                    >
+                      <span className="text-sm font-semibold text-foreground">
+                        {faq.question}
+                      </span>
+                      <ArrowRight
+                        className={`h-4 w-4 transition-transform ${isOpen ? "rotate-90 text-primary" : "text-muted-foreground"}`}
+                      />
+                    </button>
+                    {isOpen && (
+                      <p className="mt-3 text-sm text-muted-foreground">
                         {faq.answer}
                       </p>
-                    </div>
-                  </motion.div>
-                )}
-              </motion.div>
-            ))}
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>{" "}
-      {/* Map Section */}
-      <section className="py-6 sm:py-8 md:py-12">
-        <div className="text-center mb-6 sm:mb-8 px-4 sm:px-6 lg:px-8">
-          <motion.h2
-            className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-2 sm:mb-3"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            Visit Our <span className="gradient-text">Office</span>
-          </motion.h2>
-          <motion.p
-            className="text-sm sm:text-base text-muted-foreground"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            Located in Hassan, Karnataka, we're always ready for a coffee chat.
-          </motion.p>
-        </div>
-
-        <motion.div
-          className="w-full"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-        >
-          <div className="h-48 sm:h-64 md:h-80">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3876.983962!2d76.107463!3d12.983962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU5JzAyLjMiTiA3NsKwMDYnMjYuOSJF!5e0!3m2!1sen!2sin!4v1234567890123!5m2!1sen!2sin"
-              width="100%"
-              height="100%"
-              allowFullScreen
-              referrerPolicy="no-referrer-when-downgrade"
-              title="AdGrades Office Location - Vinayaka Industries, Hassan"
-              className="border-0"
-            />
-          </div>
-        </motion.div>
-      </section>{" "}
-      {/* CTA Section */}
-      <section className="py-6 sm:py-8 md:py-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="bg-card/60 backdrop-blur-sm rounded-xl p-4 sm:p-6 md:p-8 border border-border/50"
-          >
-            <Globe className="w-8 h-8 sm:w-12 sm:h-12 text-primary mx-auto mb-3 sm:mb-4" />
-            <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-foreground mb-2 sm:mb-3">
-              Ready to Start Your Project?
-            </h2>
-            <p className="text-xs sm:text-sm md:text-base text-muted-foreground mb-4 sm:mb-6 max-w-2xl mx-auto">
-              Let's discuss your goals and create a strategy that drives real
-              results for your business.
-            </p>{" "}
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <a
-                href="https://calendly.com/chandanbkrishna077/adgrades"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative inline-flex items-center justify-center px-4 py-2 sm:px-6 sm:py-3 text-sm font-semibold rounded-full bg-gradient-to-r from-primary to-secondary text-primary-foreground overflow-hidden transition-all duration-300"
-              >
-                {/* Animated background */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: "0%" }}
-                  transition={{ duration: 0.3 }}
-                />
-                <span className="relative z-10">
-                  Get Your Free Strategy Session
-                </span>
-                <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4 relative z-10 group-hover:translate-x-1 transition-transform" />
-              </a>
-            </motion.div>
-          </motion.div>
         </div>
       </section>
     </div>
