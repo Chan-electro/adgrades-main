@@ -117,14 +117,14 @@ export const team = [
   {
     name: "Suhas Reddy",
     role: "Agentic AI Developer & Research Assistant",
-    image: "",
+    image: "/suhas.jpg",
     bio: "Part developer, part mad scientist, Suhas spends his days teaching AI agents to think (and occasionally outsmart him). When he’s not deep in research mode, he’s busy turning coffee into algorithms that make AdGrades tick.",
     linkedin: "https://www.linkedin.com/in/suhas-reddy-598058388/",
   },
   {
     name: "Sonica BK",
     role: "Client Relations Manager & Lead Generation Head",
-    image: "",
+    image: "/sonica.jpg",
     bio: "The voice, face, and charm of AdGrades. Sonica can turn a cold lead into a warm friend before the first Google Meet ends. She keeps clients happy, leads flowing, and somehow manages it all with the calm of a zen master.",
     linkedin: "https://www.linkedin.com/in/sonica-bk-35a405395/",
   },
