@@ -37,7 +37,7 @@ export const KPISchema = z.object({
 export const ClientChannelSchema = z.object({
   id: z.string(), // slug, e.g., "delhi-65"
   name: z.string(),
-  logo: z.string(), // path to logo asset
+  logo: z.string().optional(), // path to logo asset (optional for fallback initials)
   industry: z.string(),
   socials: z.array(SocialHandleSchema).default([]),
   artifacts: z.array(ArtifactSchema).default([]),
@@ -81,7 +81,7 @@ export const clientChannels: ClientChannel[] = validatePortfolioData([
   {
     id: "medhavi-classes",
     name: "Medhavi Classes",
-    logo: "/logos/medhavi-classes.svg",
+    logo: "/client/medhavi.png",
     industry: "Online Education",
     socials: [
       { platform: "instagram", username: "@medhaviclasses", url: "https://instagram.com/medhaviclasses" },
@@ -141,7 +141,7 @@ export const clientChannels: ClientChannel[] = validatePortfolioData([
   {
     id: "aadhyan",
     name: "Aadhyan",
-    logo: "/logos/aadhyan.svg",
+    logo: "/client/aadhyan.jpg",
     industry: "Education",
     socials: [{ platform: "instagram", username: "@aadhyan", url: "https://instagram.com/aadhyan" }],
     kpis: [{ dateISO: "2025-09-01", label: "Leads", value: 180, unit: "" }],
@@ -170,7 +170,7 @@ export const clientChannels: ClientChannel[] = validatePortfolioData([
   {
     id: "os-code-solutions",
     name: "OS Code Solutions",
-    logo: "/logos/os-code-solutions.svg",
+    logo: "/client/oscode.png",
     industry: "IT Development",
     socials: [
       { platform: "linkedin", username: "OS Code Solutions", url: "https://linkedin.com/company/os-code-solutions" },
@@ -201,7 +201,7 @@ export const clientChannels: ClientChannel[] = validatePortfolioData([
   {
     id: "os-code-community",
     name: "OS Code Community",
-    logo: "/logos/os-code-community.svg",
+    // no dedicated logo available yet — UI will fallback to initials
     industry: "Student Tech Community",
     socials: [
       { platform: "instagram", username: "@oscodecommunity", url: "https://instagram.com/oscodecommunity" },
@@ -231,7 +231,7 @@ export const clientChannels: ClientChannel[] = validatePortfolioData([
   {
     id: "delhi-65",
     name: "Delhi 65",
-    logo: "/logos/delhi-65.svg",
+    logo: "/client/delhi65.png",
     industry: "Restaurant",
     socials: [{ platform: "instagram", username: "@delhi65", url: "https://instagram.com/delhi65" }],
     kpis: [
@@ -272,7 +272,7 @@ export const clientChannels: ClientChannel[] = validatePortfolioData([
   {
     id: "species-and-stories",
     name: "Species and Stories",
-    logo: "/logos/species-and-stories.svg",
+    // no dedicated logo available yet — UI will fallback to initials
     industry: "Café",
     socials: [
       { platform: "instagram", username: "@speciesandstories", url: "https://instagram.com/speciesandstories" },
@@ -303,7 +303,7 @@ export const clientChannels: ClientChannel[] = validatePortfolioData([
   {
     id: "mk-streetwear",
     name: "MK Streetwear",
-    logo: "/logos/mk-streetwear.svg",
+    logo: "/client/mk.png",
     industry: "Fashion",
     socials: [
       { platform: "instagram", username: "@mkstreetwear", url: "https://instagram.com/mkstreetwear" },
@@ -343,7 +343,7 @@ export const clientChannels: ClientChannel[] = validatePortfolioData([
   {
     id: "dew-drop-homestays",
     name: "Dew Drop Homestays",
-    logo: "/logos/dew-drop.svg",
+    logo: "/client/dewdrop.png",
     industry: "Hospitality",
     socials: [
       { platform: "instagram", username: "@dewdrophomestays", url: "https://instagram.com/dewdrophomestays" },
@@ -383,7 +383,7 @@ export const clientChannels: ClientChannel[] = validatePortfolioData([
   {
     id: "pureblend",
     name: "PureBlend",
-    logo: "/logos/pureblend.svg",
+    logo: "/client/pureblend.jpg",
     industry: "Food Supply Chain",
     socials: [
       { platform: "linkedin", username: "PureBlend", url: "https://linkedin.com/company/pureblend" },
@@ -413,7 +413,7 @@ export const clientChannels: ClientChannel[] = validatePortfolioData([
   {
     id: "vinayaka-enterprises",
     name: "Vinayaka Enterprises",
-    logo: "/logos/vinayaka-enterprises.svg",
+    logo: "/client/vinayaka.jpg",
     industry: "Interior Design",
     socials: [
       { platform: "instagram", username: "@vinayakainteriors", url: "https://instagram.com/vinayakainteriors" },
@@ -444,7 +444,7 @@ export const clientChannels: ClientChannel[] = validatePortfolioData([
   {
     id: "as-tech",
     name: "AS Tech",
-    logo: "/logos/as-tech.svg",
+    logo: "/client/asti.png",
     industry: "Vehicle Parts Supply",
     socials: [
       { platform: "linkedin", username: "AS Tech", url: "https://linkedin.com/company/as-tech" },
@@ -473,7 +473,7 @@ export const clientChannels: ClientChannel[] = validatePortfolioData([
   {
     id: "sp-enterprises",
     name: "SP Enterprises",
-    logo: "/logos/sp-enterprises.svg",
+    logo: "/client/splogo.png",
     industry: "Industrial, Vehicle Supply",
     socials: [
       { platform: "linkedin", username: "SP Enterprises", url: "https://linkedin.com/company/sp-enterprises" },

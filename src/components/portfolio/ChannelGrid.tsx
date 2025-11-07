@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { ClientChannel } from "@/data/portfolioData";
 import type { OutcomeFilterValue } from "./OutcomeFilters";
 import {
@@ -46,6 +46,7 @@ function ChannelTile({
   onSelect: () => void;
   currentDate: Date;
 }) {
+  const [logoFailed, setLogoFailed] = useState(false);
   const metric = useMemo(() => {
     if (selectedOutcome === "all") {
       const kpi = getMostRecentKPI(client, currentDate);
@@ -83,6 +84,18 @@ function ChannelTile({
     return sorted[0] ? formatDateISO(sorted[0].dateISO) : null;
   }, [client.artifacts, currentDate]);
 
+  const initials = useMemo(() => {
+    return client.name
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((word) => word[0]?.toUpperCase() ?? "")
+      .join("")
+      .slice(0, 2);
+  }, [client.name]);
+
+  const hasLogo = Boolean(client.logo) && !logoFailed;
+  const showFallback = !hasLogo;
+
   return (
     <li
       className="group relative overflow-hidden rounded-3xl border border-border/60 bg-card/80 p-6 shadow-md transition duration-200 hover:-translate-y-1 hover:border-primary/50 hover:shadow-2xl"
@@ -96,12 +109,20 @@ function ChannelTile({
         aria-label={`Open ${client.name} signal board`}
       >
         <div className="flex items-center gap-4">
-          <img
-            src={client.logo}
-            alt={client.name}
-            className="h-12 w-12 shrink-0 rounded-xl border border-border/70 bg-white object-contain p-1.5 shadow-sm transition group-hover:scale-105"
-            loading="lazy"
-          />
+          {showFallback ? (
+            <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-primary/10 text-base font-semibold uppercase text-primary shadow-sm">
+              <span aria-hidden="true">{initials}</span>
+              <span className="sr-only">{client.name}</span>
+            </div>
+          ) : (
+            <img
+              src={client.logo as string}
+              alt={client.name}
+              className="h-12 w-12 shrink-0 rounded-xl border border-border/70 bg-white object-contain p-1.5 shadow-sm transition group-hover:scale-105"
+              loading="lazy"
+              onError={() => setLogoFailed(true)}
+            />
+          )}
           <div className="min-w-0">
             <p className="text-base font-semibold leading-tight text-foreground md:text-lg">
               {client.name}

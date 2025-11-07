@@ -32,6 +32,7 @@ type TabId = (typeof tabs)[number]["id"];
 export function ChannelDrawer({ client, isOpen, onClose, currentDate, renderTimebar }: ChannelDrawerProps) {
   const drawerRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState<TabId>("reel");
+  const [logoFailed, setLogoFailed] = useState(false);
   const { addItem, removeItem, isPinned } = usePlaylist();
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -111,6 +112,10 @@ export function ChannelDrawer({ client, isOpen, onClose, currentDate, renderTime
     }
   }, [client, currentDate, isOpen]);
 
+  useEffect(() => {
+    setLogoFailed(false);
+  }, [client?.id]);
+
   const filteredArtifacts = useMemo(() => {
     if (!client || !isOpen) return [] as Artifact[];
     const cutoff = currentDate.getTime();
@@ -123,6 +128,19 @@ export function ChannelDrawer({ client, isOpen, onClose, currentDate, renderTime
     () => getArtifactsForTab(filteredArtifacts, activeTab),
     [filteredArtifacts, activeTab]
   );
+
+  const initials = useMemo(() => {
+    if (!client) return "";
+    return client.name
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((word) => word[0]?.toUpperCase() ?? "")
+      .join("")
+      .slice(0, 2);
+  }, [client]);
+
+  const hasLogo = Boolean(client?.logo) && !logoFailed;
+  const showFallback = !hasLogo;
 
   if (!client || !isOpen) return null;
 
@@ -154,12 +172,20 @@ export function ChannelDrawer({ client, isOpen, onClose, currentDate, renderTime
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-3">
-            <img
-              src={client.logo}
-              alt={client.name}
-              className="h-12 w-12 rounded-xl border border-border bg-white object-contain p-1"
-              loading="lazy"
-            />
+            {showFallback ? (
+              <div className="relative flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-primary/10 text-base font-semibold uppercase text-primary">
+                <span aria-hidden="true">{initials}</span>
+                <span className="sr-only">{client.name}</span>
+              </div>
+            ) : (
+              <img
+                src={client.logo as string}
+                alt={client.name}
+                className="h-12 w-12 rounded-xl border border-border bg-white object-contain p-1"
+                loading="lazy"
+                onError={() => setLogoFailed(true)}
+              />
+            )}
             <div>
               <h2 className="text-2xl font-semibold text-foreground">{client.name}</h2>
               <p className="text-sm uppercase tracking-wide text-muted-foreground">{client.industry}</p>
