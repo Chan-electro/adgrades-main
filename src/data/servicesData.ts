@@ -42,6 +42,16 @@ export interface ServiceCategory {
   color: string;
 }
 
+export interface ServicePackage {
+  id: string;
+  title: string;
+  description: string;
+  price: string;
+  ongoingPrice?: string;
+  savings?: string;
+  includes: string[];
+}
+
 export interface ProcessStep {
   step: string;
   title: string;
@@ -148,9 +158,9 @@ export const services: Service[] = [
       },
     ],
     pricing: {
-      basic: "₹6,499/month | ₹69,999/year",
-      premium: "₹8,499/month | ₹89,999/year",
-      enterprise: "₹12,499/month | ₹1,24,999/year",
+      basic: "Basic: ₹12,999/month",
+      premium: "Pro: ₹26,999/month",
+      enterprise: "Superb: ₹42,999/month",
     },
     deliverables: [
       "Content calendar",
@@ -213,9 +223,9 @@ export const services: Service[] = [
       },
     ],
     pricing: {
-      basic: "₹3,999/month + ₹10,000-₹20,000 ad spend",
-      premium: "₹8,999/month + ₹30,000-₹50,000 ad spend",
-      enterprise: "₹16,999/month + ₹50,000+ ad spend",
+      basic: "Basic: ₹18,000 (≤₹40k ad spend)",
+      premium: "Pro: ₹30,000 (≤₹80k ad spend)",
+      enterprise: "Superb: ₹50,000 (≤₹1.2L ad spend) + ₹1,500 per extra ₹10k spend",
     },
     deliverables: [
       "Campaign setup",
@@ -276,9 +286,9 @@ export const services: Service[] = [
       },
     ],
     pricing: {
-      basic: "₹350-₹900 per video",
-      premium: "₹500-₹1,200 per video",
-      enterprise: "Custom pricing for bulk orders",
+      basic: "Basic Reel: ₹1,500 (≤60s) / ₹2,500 (61-120s)",
+      premium: "Intermediate Reel: ₹3,500 (≤60s) / ₹6,000 (61-120s)",
+      enterprise: "Commercial Ads from ₹25,000 | Explainers from ₹20,000/min",
     },
     deliverables: [
       "Edited video files",
@@ -615,9 +625,10 @@ export const services: Service[] = [
       },
     ],
     pricing: {
-      basic: "₹14,999 (One-time)",
-      premium: "₹29,999 (One-time)",
-      enterprise: "₹49,999+ (One-time)",
+      basic: "Basic: ₹19,999 + ₹1,500/month maintenance",
+      premium: "Standard (CMS): ₹34,999 + ₹2,500/month maintenance",
+      enterprise:
+        "Premium: ₹59,999 + ₹3,500/month | E-commerce from ₹74,999 + ₹6,000/month + 2% sales (min ₹10,000)",
     },
     deliverables: [
       "Fully functional website",
@@ -1037,6 +1048,91 @@ export const services: Service[] = [
     ],
     timeline: "1-2 weeks setup + campaign duration",
     category: "offline-marketing",
+  },
+];
+
+export const servicePackages: ServicePackage[] = [
+  {
+    id: "brand-kickstart",
+    title: "Brand Kickstart",
+    description:
+      "Launch-ready bundle combining social media, video and ad management for growing brands.",
+    price: "₹47,999/month",
+    savings: "Save ₹3,000 vs à la carte pricing",
+    includes: [
+      "SMMA Pro (₹26,999)",
+      "4 Basic Reels (₹6,000 total)",
+      "Performance Marketing Basic (₹18,000)",
+    ],
+  },
+  {
+    id: "growth-engine",
+    title: "Growth Engine",
+    description:
+      "Scale your performance with advanced social, video, and ads support every month.",
+    price: "₹74,999/month",
+    savings: "Save ₹3,000 vs individual services",
+    includes: [
+      "SMMA Pro (₹26,999)",
+      "6 Intermediate Reels (₹21,000 total)",
+      "Performance Marketing Pro (₹30,000)",
+    ],
+  },
+  {
+    id: "performance-plus",
+    title: "Performance+",
+    description:
+      "High-impact performance marketing complemented by consistent content and social support.",
+    price: "₹60,999/month",
+    savings: "Save ₹3,000 with this bundle",
+    includes: [
+      "Performance Marketing Superb (₹50,000)",
+      "SMMA Basic (₹12,999)",
+      "4 Basic Reels (₹6,000 total)",
+    ],
+  },
+  {
+    id: "content-studio",
+    title: "Content Studio",
+    description:
+      "Content-heavy plan for brands that need a steady stream of high-quality video and social posts.",
+    price: "₹59,999/month",
+    savings: "Save ₹5,000 on content production",
+    includes: [
+      "SMMA Basic (₹12,999)",
+      "12 Basic Reels (₹18,000 total)",
+      "4 Intermediate Reels (₹14,000 total)",
+      "1 Explainer Video (₹20,000)",
+    ],
+  },
+  {
+    id: "website-launch",
+    title: "Website Launch",
+    description:
+      "Launch your new site with ongoing marketing, content, and maintenance support built in.",
+    price: "First Month: ₹69,999",
+    ongoingPrice: "Ongoing: ₹38,999/month",
+    includes: [
+      "Website Standard (₹34,999 build + ₹2,500/month maintenance)",
+      "SMMA Basic (₹12,999)",
+      "2 Intermediate Reels (₹7,000 total)",
+      "Performance Marketing Basic (₹18,000)",
+    ],
+  },
+  {
+    id: "ecom-launch-scale",
+    title: "E-Com Launch & Scale",
+    description:
+      "End-to-end package for launching and scaling an e-commerce business with managed growth.",
+    price: "First Month: ₹1,49,999",
+    ongoingPrice:
+      "Ongoing: ₹79,999/month + 2% of sales (minimum ₹10,000)",
+    includes: [
+      "E-commerce Website (₹74,999 build + ₹6,000/month maintenance)",
+      "Performance Marketing Pro (₹30,000)",
+      "SMMA Pro (₹26,999)",
+      "6 Intermediate Reels (₹21,000 total)",
+    ],
   },
 ];
 
