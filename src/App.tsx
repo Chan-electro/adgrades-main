@@ -14,6 +14,7 @@ import CertificateVerification from "./pages/CertificateVerification";
 import ClientDetails from "./pages/ClientDetails";
 import ServiceDetail from "./pages/ServiceDetail";
 import NotFound from "./pages/NotFound";
+import Portfolio from "./pages/Portfolio";
 
 function App() {
   return (
@@ -82,6 +83,14 @@ function App() {
             element={
               <Layout>
                 <ServiceDetail />
+              </Layout>
+            }
+          />
+          <Route
+            path="/portfolio"
+            element={
+              <Layout>
+                <Portfolio />
               </Layout>
             }
           />
