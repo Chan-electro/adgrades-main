@@ -12,7 +12,9 @@ import {
 import {
   services,
   serviceCategories,
+  servicePackages,
   type Service,
+  type ServicePackage,
 } from "../data/servicesData";
 
 const Services: React.FC = () => {
@@ -351,6 +353,104 @@ const Services: React.FC = () => {
                 </motion.div>
               );
             })}
+          </motion.div>
+        </div>
+      </section>{" "}
+      {/* Packages Section */}
+      <section className="py-6 sm:py-8 md:py-10 lg:py-12 bg-muted/20 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-gradient-to-br from-secondary/20 to-primary/20 rounded-full blur-3xl" />
+          <div className="absolute -bottom-16 -left-10 w-48 h-48 bg-gradient-to-br from-primary/10 to-accent/20 rounded-full blur-3xl" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div
+            className="text-center mb-6 sm:mb-8 lg:mb-10"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+          >
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3">
+              Curated Bundles
+            </span>
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-foreground mb-2">
+              Service <span className="gradient-text">Packages</span> for 2025
+            </h2>
+            <p className="text-xs sm:text-sm md:text-base text-muted-foreground max-w-3xl mx-auto">
+              Choose an all-in-one package crafted around your growth goals. Each bundle combines the right mix of social, content,
+              performance marketing, and web solutions at a bundled rate.
+            </p>
+          </motion.div>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+          >
+            {servicePackages.map((pkg: ServicePackage, index) => (
+              <motion.div
+                key={pkg.id}
+                className="relative bg-card/80 backdrop-blur-md border border-border/60 rounded-2xl p-5 sm:p-6 flex flex-col shadow-sm hover:shadow-xl transition-all duration-500"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-bl-3xl" />
+                <div className="relative z-10 flex flex-col h-full">
+                  <div className="mb-4">
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <div>
+                        <h3 className="text-base sm:text-lg font-semibold text-foreground">
+                          {pkg.title}
+                        </h3>
+                        <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                          {pkg.description}
+                        </p>
+                      </div>
+                      {pkg.savings && (
+                        <span className="inline-flex items-center whitespace-nowrap px-3 py-1 rounded-full bg-secondary/10 text-secondary text-[11px] font-semibold">
+                          {pkg.savings}
+                        </span>
+                      )}
+                    </div>
+                    <div>
+                      <p className="text-[11px] uppercase tracking-wide text-muted-foreground font-semibold">
+                        Investment
+                      </p>
+                      <p className="text-lg sm:text-xl font-bold text-foreground">
+                        {pkg.price}
+                      </p>
+                      {pkg.ongoingPrice && (
+                        <p className="text-xs sm:text-sm text-muted-foreground mt-1">
+                          {pkg.ongoingPrice}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <div className="space-y-2 mb-4">
+                    {pkg.includes.map((item) => (
+                      <div key={item} className="flex items-start gap-2">
+                        <CheckCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+                        <span className="text-sm text-muted-foreground">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-auto pt-2">
+                    <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+                      <Link
+                        to="/contact"
+                        className="inline-flex items-center justify-center w-full px-4 py-2.5 rounded-full bg-gradient-to-r from-primary to-secondary text-white text-sm font-semibold shadow-md hover:shadow-lg transition-all"
+                      >
+                        Book Package
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Link>
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>{" "}
