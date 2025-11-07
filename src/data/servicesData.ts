@@ -971,7 +971,7 @@ export const servicePackages: ServicePackage[] = [
     description:
       "Launch-ready bundle combining social media, video and ad management for growing brands.",
     price: "₹47,999/month",
-    savings: "Save ₹3,000 vs à la carte pricing",
+    savings: "Save ₹3,000 vs actual pricing",
     includes: [
       "SMMA Pro (₹26,999)",
       "4 Basic Reels (₹6,000 total)",
