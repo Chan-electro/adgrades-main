@@ -575,12 +575,12 @@ const Careers: React.FC = () => {
             {status === "success" ? (
               <div className="relative px-6 py-10 sm:px-10">
                 <motion.div
-                  className="relative overflow-hidden rounded-2xl border border-emerald-200/60 bg-white/80 px-6 py-8 text-center shadow-xl dark:border-emerald-500/30 dark:bg-emerald-950/70"
+                  className="relative overflow-hidden rounded-2xl border border-emerald-200/60 bg-white/80 px-6 py-8 text-center shadow-xl"
                   initial={{ scale: 0.9, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/50 via-transparent to-emerald-200/40 dark:from-emerald-900/40 dark:via-transparent dark:to-emerald-800/30" aria-hidden />
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/50 via-transparent to-emerald-200/40" aria-hidden />
                   <CheckCircle className="relative mx-auto mb-4 h-10 w-10 text-emerald-500" />
                   <h3 className="relative text-lg font-semibold text-foreground">
                     Application Submitted Successfully!
@@ -626,10 +626,10 @@ const Careers: React.FC = () => {
                 </div>
                 <form
                   onSubmit={handleSubmit}
-                  className="space-y-5 bg-gradient-to-br from-background/85 via-background/80 to-background/90 px-5 py-6 shadow-inner backdrop-blur-md sm:px-7 sm:py-8 dark:from-background/95 dark:via-background/92 dark:to-background/98"
+                  className="space-y-5 bg-white/70 px-5 py-6 backdrop-blur-sm sm:px-7 sm:py-8"
                 >
                   {status === "error" && errorMessage && (
-                    <div className="rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-left text-xs sm:text-sm font-medium text-destructive dark:border-destructive/30 dark:bg-destructive/15">
+                    <div className="rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-left text-xs sm:text-sm font-medium text-destructive">
                       {errorMessage}
                     </div>
                   )}
@@ -648,7 +648,7 @@ const Careers: React.FC = () => {
                         required
                         value={applicationData.name}
                         onChange={handleInputChange}
-                        className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background dark:border-border/40 dark:bg-background/80"
+                        className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                         placeholder="John Doe"
                       />
                     </div>
@@ -666,7 +666,7 @@ const Careers: React.FC = () => {
                         required
                         value={applicationData.email}
                         onChange={handleInputChange}
-                        className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background dark:border-border/40 dark:bg-background/80"
+                        className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                         placeholder="john@example.com"
                       />
                     </div>
@@ -686,7 +686,7 @@ const Careers: React.FC = () => {
                         name="phone"
                         value={applicationData.phone}
                         onChange={handleInputChange}
-                        className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background dark:border-border/40 dark:bg-background/80"
+                        className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                         placeholder="+91 98765 43210"
                       />
                     </div>
@@ -703,7 +703,7 @@ const Careers: React.FC = () => {
                         name="portfolio"
                         value={applicationData.portfolio}
                         onChange={handleInputChange}
-                        className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background dark:border-border/40 dark:bg-background/80"
+                        className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                         placeholder="https://linkedin.com/in/johndoe"
                       />
                     </div>
@@ -723,7 +723,7 @@ const Careers: React.FC = () => {
                         required
                         value={applicationData.position}
                         onChange={handleInputChange}
-                        className="w-full appearance-none rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background dark:border-border/40 dark:bg-background/80"
+                        className="w-full appearance-none rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                       >
                         <option value="">Select a position</option>
                         {openPositions.map((position) => (
@@ -753,7 +753,7 @@ const Careers: React.FC = () => {
                         name="experience"
                         value={applicationData.experience}
                         onChange={handleInputChange}
-                        className="w-full appearance-none rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background dark:border-border/40 dark:bg-background/80"
+                        className="w-full appearance-none rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                       >
                         <option value="">Select experience level</option>
                         <option value="0-1">0-1 years (Entry Level)</option>
@@ -778,7 +778,7 @@ const Careers: React.FC = () => {
                       required
                       value={applicationData.message}
                       onChange={handleInputChange}
-                      className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background dark:border-border/40 dark:bg-background/80"
+                      className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                       placeholder="Highlight your experience, achievements, and what excites you about working with AdGrades."
                     />
                   </div>
@@ -796,7 +796,7 @@ const Careers: React.FC = () => {
                       name="resume"
                       value={applicationData.resume}
                       onChange={handleInputChange}
-                      className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background dark:border-border/40 dark:bg-background/80"
+                      className="w-full rounded-lg border border-border/60 bg-background/70 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 shadow-sm transition-all duration-300 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary/70 focus:ring-offset-2 focus:ring-offset-background"
                       placeholder="Share a Google Drive, Dropbox, or portfolio link."
                     />
                   </div>

@@ -3,7 +3,7 @@ export const heroData = {
   subtitle: "Elevate Your Brand with",
   highlight: "AdGrades",
   description:
-    "We help startups and businesses build powerful digital marketing strategies that drive growth, engagement, and measurable results.",
+    "At AdGrades startups and businesses build powerful digital marketing strategies that drive growth, engagement, and measurable results.",
   primaryCTA: "Get Started Today",
   secondaryCTA: "View Our Work",
   stats: [
