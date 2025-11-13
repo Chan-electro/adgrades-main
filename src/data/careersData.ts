@@ -216,6 +216,4 @@ export const benefits: string[] = [
   "Professional development budget (₹1,50,000/year)",
   "Modern equipment and tools",
   "Team building events and company retreats",
-  "Unlimited PTO policy",
-  "Stock options for senior positions",
 ];
