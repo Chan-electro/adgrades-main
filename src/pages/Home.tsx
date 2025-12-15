@@ -25,6 +25,7 @@ import {
 import AnimatedCounter from "../components/AnimatedCounter";
 import { heroData, servicesData, ctaData, testimonialData } from "../data/homeData";
 import { TestimonialsColumn } from "../components/ui/testimonials-columns-1";
+import TeaserSection from "../components/TeaserSection";
 
 const Home: React.FC = () => {
   // Service icons mapping
@@ -336,6 +337,7 @@ const Home: React.FC = () => {
           }}
         />
       </section>{" "}
+      <TeaserSection />
       {/* Stats Section - Modern Floating Design */}
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 relative overflow-hidden">
         {/* Background Elements */}
@@ -503,15 +505,13 @@ const Home: React.FC = () => {
               return (
                 <div
                   key={service.title}
-                  className={`${
-                    layouts[index]
-                  } group relative overflow-hidden rounded-none bg-gradient-to-br from-card to-card/50 border-r border-b border-border hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:z-10 ${
-                    isLarge
+                  className={`${layouts[index]
+                    } group relative overflow-hidden rounded-none bg-gradient-to-br from-card to-card/50 border-r border-b border-border hover:border-primary/50 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:z-10 ${isLarge
                       ? "min-h-[250px] sm:min-h-[280px] md:min-h-[320px] lg:min-h-[350px] xl:min-h-[400px]"
                       : isMedium
-                      ? "min-h-[200px] sm:min-h-[220px] md:min-h-[240px] lg:min-h-[280px] xl:min-h-[300px]"
-                      : "min-h-[160px] sm:min-h-[180px] md:min-h-[200px] lg:min-h-[220px] xl:min-h-[240px]"
-                  }`}
+                        ? "min-h-[200px] sm:min-h-[220px] md:min-h-[240px] lg:min-h-[280px] xl:min-h-[300px]"
+                        : "min-h-[160px] sm:min-h-[180px] md:min-h-[200px] lg:min-h-[220px] xl:min-h-[240px]"
+                    }`}
                 >
                   {/* Background Pattern */}
                   <div className="absolute inset-0 opacity-5">
@@ -525,22 +525,20 @@ const Home: React.FC = () => {
                       <div className="relative">
                         {" "}
                         <div
-                          className={`${
-                            isLarge
-                              ? "w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20"
-                              : isMedium
+                          className={`${isLarge
+                            ? "w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-18 lg:h-18 xl:w-20 xl:h-20"
+                            : isMedium
                               ? "w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 xl:w-18 xl:h-18"
                               : "w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16"
-                          } bg-gradient-to-br from-primary to-secondary rounded-xl lg:rounded-2xl flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300`}
+                            } bg-gradient-to-br from-primary to-secondary rounded-xl lg:rounded-2xl flex items-center justify-center mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300`}
                         >
                           <IconComponent
-                            className={`${
-                              isLarge
-                                ? "w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10"
-                                : isMedium
+                            className={`${isLarge
+                              ? "w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 xl:w-10 xl:h-10"
+                              : isMedium
                                 ? "w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 xl:w-9 xl:h-9"
                                 : "w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 xl:w-8 xl:h-8"
-                            } text-white`}
+                              } text-white`}
                           />
                         </div>{" "}
                         {/* Floating elements for large card */}
@@ -558,25 +556,23 @@ const Home: React.FC = () => {
                     </div>
                     {/* Title */}{" "}
                     <h3
-                      className={`${
-                        isLarge
-                          ? "text-lg sm:text-xl md:text-2xl lg:text-3xl"
-                          : isMedium
+                      className={`${isLarge
+                        ? "text-lg sm:text-xl md:text-2xl lg:text-3xl"
+                        : isMedium
                           ? "text-base sm:text-lg md:text-xl lg:text-2xl"
                           : "text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl"
-                      } font-bold text-foreground mb-2 sm:mb-3 lg:mb-4 group-hover:text-primary transition-colors`}
+                        } font-bold text-foreground mb-2 sm:mb-3 lg:mb-4 group-hover:text-primary transition-colors`}
                     >
                       {service.title}
                     </h3>
                     {/* Description */}
                     <p
-                      className={`text-muted-foreground leading-relaxed mb-3 sm:mb-4 lg:mb-6 flex-grow ${
-                        isLarge
-                          ? "text-base sm:text-lg"
-                          : isMedium
+                      className={`text-muted-foreground leading-relaxed mb-3 sm:mb-4 lg:mb-6 flex-grow ${isLarge
+                        ? "text-base sm:text-lg"
+                        : isMedium
                           ? "text-sm sm:text-base"
                           : "text-xs sm:text-sm lg:text-base"
-                      }`}
+                        }`}
                     >
                       {service.description}
                     </p>
