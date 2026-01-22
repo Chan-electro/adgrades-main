@@ -87,13 +87,6 @@ export const team = [
     linkedin: "https://www.linkedin.com/in/ashish-gowda-a3542f546165h41531r865",
   },
   {
-    name: "Chandu M",
-    role: "CTO",
-    image: "/chandu.jpg",
-    bio: "The tech compass of AdGrades, Chandu turns ambitious ideas into rock-solid systems. She speaks fluent AI, data, and caffeine often all at once. When the team hits a wall, Chandu doesn’t just find the door she builds a smarter one that opens automatically.",
-    linkedin: "https://www.linkedin.com/in/chandu-m-35b920295",
-  },
-  {
     name: "Pavan B Krishna",
     role: "Ads Manager",
     image: "/pavan.jpg",
